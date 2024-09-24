@@ -103,6 +103,46 @@ function moveAI() {
   }
 }
 
+// Function to draw a curved paddle
+function drawCurvedPaddle(x, y, paddleWidth, paddleHeight) {
+  // Draw the central rectangular part of the paddle
+  ctx.beginPath();
+  ctx.rect(x, y + ballRadius, paddleWidth, paddleHeight - ballRadius * 2); // Reduced height for the arcs
+  ctx.fillStyle = 'white';
+  ctx.fill();
+
+  // Draw the top arc
+  ctx.beginPath();
+  ctx.arc(x + paddleWidth / 2, y + ballRadius, ballRadius, Math.PI, 0); // Top semicircle
+  ctx.fill();
+
+  // Draw the bottom arc
+  ctx.beginPath();
+  ctx.arc(x + paddleWidth / 2, y + paddleHeight - ballRadius, ballRadius, 0, Math.PI); // Bottom semicircle
+  ctx.fill();
+}
+
+// Function to dr`aw a rounded rectangle paddle
+function drawRoundedPaddle(x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y); // Top side
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius); // Top-right corner
+  ctx.lineTo(x + width, y + height - radius); // Right side
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height); // Bottom-right corner
+  ctx.lineTo(x + radius, y + height); // Bottom side
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius); // Bottom-left corner
+  ctx.lineTo(x, y + radius); // Left side
+  ctx.quadraticCurveTo(x, y, x + radius, y); // Top-left corner
+  let gradient = ctx.createLinearGradient(x, y, x, y + height);
+  gradient.addColorStop(0, 'white'); // Top color
+  gradient.addColorStop(1, '#ccc'); // Bottom color (lighter gray)
+  ctx.fillStyle = gradient;
+  ctx.fill();
+  ctx.closePath();
+}
+
+
 // Game loop
 function gameLoop() {
   if (isGameOver || !gameInProgress) return; // Stop game if it's over or not started
@@ -162,8 +202,8 @@ function gameLoop() {
 
   // Draw paddles
   ctx.fillStyle = 'white';
-  ctx.fillRect(0, player1Y, paddleWidth, paddleHeight); // Left paddle
-  ctx.fillRect(canvas.width - paddleWidth, player2Y, paddleWidth, paddleHeight); // Right paddle
+  drawRoundedPaddle(0, player1Y, paddleWidth, paddleHeight, 10);
+  drawRoundedPaddle(canvas.width - paddleWidth, player2Y, paddleWidth, paddleHeight, 10);
 
   // Draw player names
   ctx.font = '20px Arial';
