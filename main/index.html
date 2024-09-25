@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Bracket</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="playerSelection">
+        <h2>Select Number of Players</h2>
+        <button id="select4Players">4 Players</button>
+        <button id="select8Players">8 Players</button>
+    </div>
+
+    <div id="registerForm" style="display: none;">
+        <h2 id="playerPrompt">Enter Player Name:</h2>
+        <form>
+            <input type="text" id="playerName" placeholder="Enter player name" required>
+            <button type="submit">Register</button>
+        </form>
+        <ul id="playerList"></ul>
+    </div>
+
+    <div id="bracket">
+        <div id="round1" class="round"></div>
+        <div id="round2" class="round"></div> <!-- Round 2 will be added dynamically -->
+    </div>
+
+    <!-- Include the JS modules -->
+    <script type="module" src="js/register.js"></script>
+    <script type="module" src="js/bracket.js"></script>
+    <script type="module" src="js/match.js"></script>
+</body>
+</html>
