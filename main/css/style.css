@@ -22,110 +22,10 @@ h3 {
     background-color: rgba(50, 50, 50, 0.5); /* Semi-transparent background */
     padding: 10px;
     border-radius: 5px;
+    text-align: center; /* Center the text */
 }
 
-/* Canvas */
-canvas {
-    border: 5px solid #ffffff; /* White border around the canvas */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2); /* Glowing effect */
-    border-radius: 10px; /* Rounded corners for the canvas */
-}
-
-/* Player Registration Form */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: rgba(50, 50, 50, 0.7); /* Dark semi-transparent background */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
-}
-
-/* Input Field Styling */
-input[type="text"] {
-    font-size: 16px;
-    padding: 10px;
-    border: 2px solid #ffffff;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #2e2e2e;
-    color: white;
-    width: 250px;
-}
-
-/* Button Styling */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Glowing button */
-}
-
-/* Button Hover Effect */
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Score Display */
-.score {
-    font-size: 36px;
-    color: #f5f5f5;
-    font-family: 'Roboto', sans-serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Subtle shadow for scores */
-    margin: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 800px;
-    text-align: center;
-}
-
-/* Tournament Brackets */
-#bracket {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 800px;
-}
-
-/* Each Round of Matches */
-.round {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-/* Each Match in the Bracket */
-.match {
-    background-color: rgba(50, 50, 50, 0.8); /* Dark semi-transparent background */
-    color: #ffffff;
-    padding: 15px 30px;
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Glowing effect */
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    font-size: 18px;
-    transition: transform 0.3s ease;
-}
-
-/* Hover Effect for Match Cards */
-.match:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.7); /* Stronger glow on hover */
-}
-
-/* Final Winner Display */
+/* Winner Display Centering */
 #winnerDisplay {
     display: flex;
     justify-content: center;
@@ -139,11 +39,12 @@ button:hover {
     font-weight: bold;
     border-radius: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(0, 123, 255, 0.5); /* Glowing effect */
-    animation: winnerAnimation 1.5s infinite alternate ease-in-out; /* Animation */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(0, 123, 255, 0.5);
+    animation: winnerAnimation 1.5s infinite alternate ease-in-out;
+    text-align: center; /* Ensure text is centered */
 }
 
-/* Animation for Winner Display */
+/* Winner Animation */
 @keyframes winnerAnimation {
     from {
         transform: scale(1);
@@ -155,6 +56,54 @@ button:hover {
     }
 }
 
+/* Tournament Brackets */
+#bracket {
+    margin-top: 30px;
+}
+
+.round {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Match cards with Bootstrap grid classes */
+.match {
+    background-color: rgba(50, 50, 50, 0.8); /* Dark semi-transparent background */
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Glowing effect */
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* Make sure the canvas div and its border are hidden initially */
+#canvasDiv.d-none {
+    display: none !important; /* Ensure the entire container is hidden */
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Canvas styling (applied when visible) */
+canvas {
+    background-color: #333333; /* Light black background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5); /* Glowing effect */
+    margin-top: 20px;
+}
+
+
+/* Hover Effect for Match Cards */
+.match:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.7);
+}
 
 /* Full-screen canvas for responsiveness */
 @media screen and (max-width: 1024px) {
@@ -167,4 +116,3 @@ button:hover {
         width: 90vw;
     }
 }
-

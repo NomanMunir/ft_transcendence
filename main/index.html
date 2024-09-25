@@ -1,35 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Bracket</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="playerSelection">
-        <h2>Select Number of Players</h2>
-        <button id="select4Players">4 Players</button>
-        <button id="select8Players">8 Players</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pong Tournament</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container text-center my-5">
+        <!-- Player Selection -->
+        <div id="playerSelection" class="mb-4">
+            <h2>Select Number of Players</h2>
+            <div class="btn-group" role="group" aria-label="Select Players">
+                <button id="select4Players" class="btn btn-primary">4 Players</button>
+                <button id="select8Players" class="btn btn-primary">8 Players</button>
+            </div>
+        </div>
+
+        <!-- Player Registration Form -->
+        <div id="registerForm" class="d-none">
+            <h2 id="playerPrompt" class="mb-4">Enter Player Name</h2>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="playerName" placeholder="Enter player name" required>
+                </div>
+                <button type="submit" class="btn btn-success">Register</button>
+            </form>
+            <ul id="playerList" class="list-group mt-3"></ul>
+        </div>
+
+        <!-- Bracket Display -->
+        <div id="bracket" class="d-none mt-5">
+            <h2>Tournament Bracket</h2>
+            <div id="round1" class="round row"></div> <!-- First round matches will be displayed here -->
+            <div id="round2" class="round row"></div> <!-- Second round (if applicable) -->
+        </div>
+
+        <div class="container text-center my-5">
+            <!-- Player Names Display (Initially hidden with Bootstrap's d-none) -->
+            <div id="nameDisplay" class="d-none">
+                <h3 id="playerNames">Player 1 vs Player 2</h3>
+            </div>
+    
+            <!-- Canvas Wrapper (Initially hidden with Bootstrap's d-none) -->
+            <div id="canvasDiv" class="d-none d-flex justify-content-center align-items-center">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+            </div>
+        </div>
+
+        <!-- Winner Display -->
+        <div id="winnerDisplay" class="d-none">
+            <h3 class="text-center"></h3>
+        </div>
     </div>
 
-    <div id="registerForm" style="display: none;">
-        <h2 id="playerPrompt">Enter Player Name:</h2>
-        <form>
-            <input type="text" id="playerName" placeholder="Enter player name" required>
-            <button type="submit">Register</button>
-        </form>
-        <ul id="playerList"></ul>
-    </div>
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <div id="bracket">
-        <div id="round1" class="round"></div>
-        <div id="round2" class="round"></div> <!-- Round 2 will be added dynamically -->
-    </div>
-
-    <!-- Include the JS modules -->
+    <!-- Include your custom JS -->
     <script type="module" src="js/register.js"></script>
     <script type="module" src="js/bracket.js"></script>
     <script type="module" src="js/match.js"></script>
 </body>
+
 </html>
