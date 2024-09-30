@@ -6,9 +6,11 @@ document.addEventListener("keydown", (e)=> keyHandler(e, true));
 document.addEventListener("keyup", (e)=> keyHandler(e, false));
 
 const winningScore = 5;
+let gameOver = false;
 let gameLoopID;
 
-class Ball {
+class Ball
+{
     constructor(x, y, radius, dx, dy)
     {
         this.x = x;
@@ -50,14 +52,14 @@ class Ball {
         if (this.x + this.dx < this.radius)
         {
             player2.score++;
-            this.reset();
             checkForWinner();
+            if (!gameOver) this.reset();
         }
         if (this.x + this.dx > canvas.width - this.radius) {
             // Player 1 scores a point
             player1.score++;
-            this.reset();
             checkForWinner();
+            if (!gameOver) this.reset();
         }
     }
 }
@@ -110,7 +112,6 @@ const player1 = new Player(0, (canvas.height - 75) / 2, 10, 75, "w", "s");
 const player2 = new Player(canvas.width - 10, (canvas.height - 75) / 2, 10, 75, "ArrowUp", "ArrowDown");
 
 function keyHandler(e, isPressed) {
-    // Player 1 controls (W/S keys)
     if (e.key === player1.upKey) {
         player1.upPressed = isPressed;
     }
@@ -118,7 +119,6 @@ function keyHandler(e, isPressed) {
         player1.downPressed = isPressed;
     }
 
-    // Player 2 controls (ArrowUp/ArrowDown keys)
     if (e.key === player2.upKey) {
         player2.upPressed = isPressed;
     }
@@ -144,6 +144,7 @@ function displayWinner(winner)
     ctx.fillText(`${winner} Wins!`, canvas.width / 2, canvas.height / 2);
 
     cancelAnimationFrame(gameLoopID);
+    gameOver = true;
 }
 
 function displayScores() {
@@ -153,8 +154,8 @@ function displayScores() {
     ctx.fillText(`Player 2: ${player2.score}`, canvas.width - 200, 30);
 }
 
-
 function gameLoop() {
+    if (gameOver) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear the canvas
 
     ball.draw();
