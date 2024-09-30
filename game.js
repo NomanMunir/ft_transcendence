@@ -64,7 +64,6 @@ class Ball
     }
 }
 
-
 class Player
 {
     constructor(paddleX, paddleY, paddleWidth, paddleHeight, upKey, downKey)
@@ -100,14 +99,12 @@ class Player
             ball.x + ball.radius > this.paddleX &&
             ball.y > this.paddleY && 
             ball.y < this.paddleY + this.paddleHeight) {
-            ball.dx = -ball.dx;  // Reverse ball's direction on collision
+            ball.dx = -ball.dx;
         }
     }
 }
 
 const ball = new Ball(canvas.width / 2, canvas.height / 2, 10, 5, 5);
-
-// Instantiate Player 1 (left paddle) and Player 2 (right paddle)
 const player1 = new Player(0, (canvas.height - 75) / 2, 10, 75, "w", "s");
 const player2 = new Player(canvas.width - 10, (canvas.height - 75) / 2, 10, 75, "ArrowUp", "ArrowDown");
 
@@ -159,10 +156,10 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear the canvas
 
     ball.draw();
-    ball.update();
-
     player1.draw();
     player2.draw();
+    
+    ball.update();
     player1.update();
     player2.update();
 
