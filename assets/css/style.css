@@ -65,7 +65,7 @@
 	background-color: var(--background-color);
 	font-family: var(--default-font);
   }
-  
+
   a {
 	color: var(--accent-color);
 	text-decoration: none;
@@ -86,7 +86,7 @@
 	color: var(--heading-color);
 	font-family: var(--heading-font);
   }
-  
+
   /* PHP Email Form Messages
   ------------------------------*/
   .php-email-form .error-message {
@@ -163,10 +163,10 @@
   }
   
   .header .logo h1 {
-	font-size: 30px;
+	font-size: 40px;
 	margin: 0;
 	font-weight: 700;
-	color: var(--heading-color);
+	color: var(--accent-color);
   }
   
   .header .header-social-links {
@@ -234,7 +234,7 @@
 	.navmenu a:focus {
 	  color: var(--nav-color);
 	  padding: 18px 15px;
-	  font-size: 16px;
+	  font-size: 24px;
 	  font-family: var(--nav-font);
 	  font-weight: 400;
 	  display: flex;
@@ -760,6 +760,16 @@
   /*--------------------------------------------------------------
   # Hero Section
   --------------------------------------------------------------*/
+body {
+	/* width: 100%;
+	min-height: 100vh;
+	position: relative;
+	/* padding: 80px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center; */
+	background: url(../img/hero-bg.png);
+  }
   .hero {
 	width: 100%;
 	min-height: 100vh;
@@ -768,9 +778,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: url(../img/hero-bg.png);
+	background: transparent;
   }
-  
   .hero .container {
 	position: relative;
 	z-index: 3;
@@ -870,7 +879,15 @@
   
   /*--------------------------------------------------------------
   # Featured Services Section
-  --------------------------------------------------------------*/
+  --------------------------------------------------------------*/ 
+  .featured-services {
+	margin: 200px 0;
+	background: transparent;
+  }
+  .featured-services h2 {
+	font-size: 48px;
+	color: var(--accent-color);
+  }
   .featured-services .card {
 	background-color: var(--background-color);
 	color: var(--default-color);
@@ -1797,6 +1814,3 @@
   /*--------------------------------------------------------------
   # Starter Section Section
   --------------------------------------------------------------*/
-  .starter-section {
-	/* Add your styles here */
-  }
