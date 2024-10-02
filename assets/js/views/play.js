@@ -1,9 +1,6 @@
-import { genNavBar } from "./navbar.js"
-
 export function genPlayPage()
 {
 	return `
-	${genNavBar()}
 	<section id="featured-services" class="featured-services section">
 
       <!-- Section Title -->

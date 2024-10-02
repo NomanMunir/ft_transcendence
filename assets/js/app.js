@@ -1,5 +1,8 @@
-import { genHomePage } from "./templates/home.js";
-import { genPlayPage } from "./templates/play.js";
+import { initMainJs } from "./main.js";
+import { genHomePage } from "./views/home.js";
+import { genNavBar } from "./views/navbar.js";
+import { genPlayPage } from "./views/play.js";
+
 
 const routes = {
     '*': '/views/home.html',
@@ -30,22 +33,24 @@ const handleLocation = async () => {
     // document.getElementById('app').innerHTML = html;  // Load the HTML into the app div
     
     // Call specific functions based on the route
+    mainContent.innerHTML = genNavBar();
 switch (path)
 {
   case '#play':
-    mainContent.innerHTML = genPlayPage();
+    mainContent.innerHTML += genPlayPage();
       break;
   case '#':
-      mainContent.innerHTML = genHomePage();
+      mainContent.innerHTML += genHomePage();
       break;
   case '#home':
-      mainContent.innerHTML = genHomePage();
+      mainContent.innerHTML += genHomePage();
       break;
   default:
       console.log("No function for this route.");
       break;
   }
+  initMainJs();
 };
 
 window.addEventListener('hashchange', handleLocation);
-window.addEventListener('load', handleLocation);
+window.addEventListener('load', handleLocation); 

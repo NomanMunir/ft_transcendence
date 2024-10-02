@@ -1,9 +1,6 @@
-import { genNavBar } from "./navbar.js";
-
 export function genHomePage()
 {
 	return `
-    ${genNavBar()}
     <!-- Hero Section -->
     <section id="home" class="hero section dark-background">
 
