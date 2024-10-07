@@ -1,56 +1,102 @@
-import { initMainJs } from "./main.js";
-import { genHomePage } from "./views/home.js";
-import { genNavBar } from "./views/navbar.js";
-import { genPlayPage } from "./views/play.js";
-
-
 const routes = {
-    '*': '/views/home.html',
-    404: '/views/404.html',
-    '#': '/views/home.html',
-    '#home': '/views/home.html',
-    '#login': '/views/login.html',
-    '#register': '/views/register.html',
-    '#play!': '/views/selectgame.html',
-    '#profile': '/views/profile.html',
-  };
+  '*': 
+  {
+    view: './views/home.html',
+    script: ['./assets/js/main.js']
+  },
+  404:
+  {
+    view: './views/404.html',
+    script: []
+  }, 
+  '#':
+  {
+    view: './views/home.html',
+    script: ['./assets/js/main.js']
+  },
+  '#home':
+  {
+    view: './views/home.html',
+    script: ['./assets/js/main.js']
+  },
+  '#play':
+  {
+    view: './views/play.html',
+    script: ['./assets/js/main.js']
+  },
+  '#select_pong':
+  {
+    view: './views/select_pong.html',
+    script: ['./assets/js/main.js']
+  },
+  '#single_pong':
+  {
+    view: './views/single_pong.html',
+    script: ['./assets/js/main.js']
+  },
+  '#multi_pong':
+  {
+    view: './views/multi_pong.html',
+    script: ['./assets/js/main.js']
+  },
+  '#tournament_pong':
+  {
+    view: './views/tournament_pong.html',
+    script: ['./assets/js/main.js']
+  },
+  '#form':
+  {
+    view: './views/form.html',
+    script: ['./assets/js/main.js', './assets/js/form.js']
+  },
+  '#form2':
+  {
+    view: './views/form.html',
+    script: ['./assets/js/main.js', './assets/js/form.js']
+  },
+};
 
-  const mainContent = document.querySelector('#app');
-// document.addEventListener('DOMContentLoaded', function () {
-//     mainContent.innerHTML = genNavBar();
-    //  += genHomePage();
-
-// });
-
-// Handle navigation and routing
 const handleLocation = async () => {
     let path = window.location.hash || '#';
     const questionMarkIndex = path.indexOf('?');
     if (questionMarkIndex !== -1)
       path = path.slice(0, questionMarkIndex);
-    // const route = routes[path] || routes[404];  // Fallback to 404 if route not found
-    // const html = await fetch(route).then((data) => data.text());
-    // document.getElementById('app').innerHTML = html;  // Load the HTML into the app div
-    
-    // Call specific functions based on the route
-    mainContent.innerHTML = genNavBar();
-switch (path)
-{
-  case '#play':
-    mainContent.innerHTML += genPlayPage();
-      break;
-  case '#':
-      mainContent.innerHTML += genHomePage();
-      break;
-  case '#home':
-      mainContent.innerHTML += genHomePage();
-      break;
-  default:
-      console.log("No function for this route.");
-      break;
-  }
-  initMainJs();
+    const route = routes[path] || routes[404];
+    console.log(`Loading ${route.view} for ${path}`);
+    const response = await fetch(route.view)
+    const html = await response.text();
+    const appElement = document.getElementById('app');
+    appElement.innerHTML = html;
+
+    route.script.forEach(async (script) => {
+      if (!document.querySelector(`script[src="${script}"]`))
+      {
+        console.log(`Loading ${script}`);
+        const scriptTag = document.createElement('script');
+        scriptTag.src = script;
+        document.body.appendChild(scriptTag);
+        scriptTag.onload = () => {
+         initializeMain();
+          console.log(`${script} loaded`);
+        }
+      }
+      else
+        initializeMain();
+    })
+    // if (!document.querySelector(`script[src="./assets/js/main.js"]`))
+    // {
+    //   console.log("Loading main.js");
+    //   const scriptTag = document.createElement('script');
+    //   scriptTag.src = "./assets/js/main.js";
+    //   document.body.appendChild(scriptTag);
+    //   scriptTag.onload = () => {
+    //     console.log("main.js loaded");
+    //     initializeMain();
+    //   }
+    // }
+    // else
+    //   initializeMain();
 };
 
 window.addEventListener('hashchange', handleLocation);
-window.addEventListener('load', handleLocation); 
+window.addEventListener('load', handleLocation);

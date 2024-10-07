@@ -1,0 +1,59 @@
+{
+	"site": {
+	  "name": "42 Pong"
+	},
+	"nav": {
+	  "play": "Spielen!",
+	  "about": "Über",
+	  "profile": "Profil",
+	  "login": "Anmelden",
+	  "logout": "Abmelden",
+	  "language": "Sprache wählen"
+	},
+	"home": {
+	  "logoAlt": "Logo",
+	  "title": "Bereit, Set, Spiel an!",
+	  "description": "Tauche ein in eine Welt voller endloser Aufregung und epischer Herausforderungen!",
+	  "playButton": "Spielen!"
+	},
+	"featured": {
+	  "title": "Wähle dein Spiel",
+	  "pingPong": "Tischtennis",
+	  "ticTacToe": "Tic Tac Toe",
+	  "pingPongImg": "Bild der Tischtennis-Spielauswahl",
+	  "tttImg": "Bild der Tic Tac Toe-Spielauswahl"
+	},
+	"language": {
+	  "english": "Englisch",
+	  "arabic": "Arabisch",
+	  "german": "Deutsch",
+	  "turkish": "Türkisch"
+	},
+	"ppmode": {
+		"title": "Wähle deinen Modus",
+		"single": "Einzelspieler",
+		"multi": "Mehrspieler",
+		"tournament": "Turnier",
+		"singleImg": "Bild des Einzelspielermodus",
+		"multiImg": "Bild des Mehrspielermodus",
+		"tournamentImg": "Bild des Turniermodus",
+		"singleDesc": "Futuristisches Duell zwischen einem Menschen und einer AI in einem minimalistischen Pong-Setting",
+		"multiDesc": "Nimm an einem lebhaften Pong-Kampf mit 2-4 Spielern in einer futuristischen Arcade-Umgebung teil",
+		"tournamentDesc": "Intensives 8-Spieler-Pong-Turnier in einer fokussierten, wettbewerbsorientierten Szene"
+	  },
+	"ppmulti": {
+		"title": "Mehrere Spieler",
+		"two": "2 Spieler",
+		"three": "3 Spieler",
+		"four": "4 Spieler",
+		"twoImg": "Bild für den Modus mit 2 Spielern",
+		"threeImg": "Bild für den Modus mit 3 Spielern",
+		"fourImg": "Bild für den Modus mit 4 Spielern"
+	},
+	"404": {
+		"title": "404",
+		"message": "Oops! Du hast das Internet kaputt gemacht!",
+		"link": "Zurück zur Sicherheit!"
+	  }
+  }
+  

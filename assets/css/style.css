@@ -283,6 +283,7 @@
 	}
   
 	.navmenu .dropdown ul a {
+		cursor: pointer;
 	  padding: 10px 20px;
 	  font-size: 15px;
 	  text-transform: none;
@@ -1814,3 +1815,15 @@ body {
   /*--------------------------------------------------------------
   # Starter Section Section
   --------------------------------------------------------------*/
+
+.form-section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: transparent;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}

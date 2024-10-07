@@ -1,36 +1,29 @@
-
-export function initMainJs()
-{
-  "use strict";
-
-  /**
-   * Mobile nav toggle
-   */
+"use strict";
+/**
+ * Mobile nav toggle
+ */
+function initializeMain() {
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-  console.log(mobileNavToggleBtn);
 
-  function mobileNavToogle()
-  {
+  if (mobileNavToggleBtn) {
+    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  }
+
+  function mobileNavToogle() {
     console.log("mobileNavToggleBtn clicked");
     document.querySelector('body').classList.toggle('mobile-nav-active');
     mobileNavToggleBtn.classList.toggle('bi-list');
     mobileNavToggleBtn.classList.toggle('bi-x');
   }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-  /**
-   * Hide mobile nav on same-page/hash links
-   */
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
     navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active'))
+      if (document.querySelector('.mobile-nav-active')) {
         mobileNavToogle();
+      }
     });
   });
 
-  /**
-   * Toggle mobile nav dropdowns
-   */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
     navmenu.addEventListener('click', function(e) {
       e.preventDefault();
@@ -39,6 +32,50 @@ export function initMainJs()
       e.stopImmediatePropagation();
     });
   });
+
+function getNestedValue(obj, key)
+{
+  return key.split('.').reduce((currentObject, keyPart) => {
+      return currentObject ? currentObject[keyPart] : undefined;
+  }, obj);
+}
+async function fetchLang(lang)
+{
+  const response = await fetch(`/assets/js/language/${lang}.json`);
+  const data = await response.json();
+  return data;
+}
+function changeLanguage(langObj) {
+  document.querySelectorAll("[data-i18n]").forEach(elem => {
+    const key = elem.getAttribute("data-i18n");
+    if (getNestedValue(langObj, key))
+    {
+
+      elem.textContent = getNestedValue(langObj, key);
+
+      // elem.textContent = lang[key];
+    }
+  });
+}
+
+async function handleLanguageChange(lang) {
+  localStorage.setItem('language', lang);
+  const fetchedLangObj = await fetchLang(lang);
+  changeLanguage(fetchedLangObj);
+  console.log(`Language changed to: ${lang}`);
+}
+
+  document.addEventListener('click', (event) => {
+    if (event.target.matches('.dropdown a[data-lang]')) {
+      event.preventDefault();
+      let lang = event.target.getAttribute('data-lang') || 'en';
+      handleLanguageChange(lang);
+    }
+  });
+
+  const savedLanguage = localStorage.getItem('language') || 'en';
+  handleLanguageChange(savedLanguage); // Apply the saved language
+}
 
   /**
    * Preloader
@@ -191,4 +228,4 @@ export function initMainJs()
   // }
   // window.addEventListener('load', navmenuScrollspy);
   // document.addEventListener('scroll', navmenuScrollspy);
-}
+// }

@@ -1,0 +1,58 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+	<div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+  
+	  <a href="#home" class="logo d-flex align-items-center me-auto me-xl-0">
+		<!-- Uncomment the line below if you also wish to use an image logo -->
+		<!-- <img src="assets/img/logo.png" alt="" data-i18n="[alt]logo.alt"> -->
+		<h1 class="sitename" data-i18n="site.name"></h1>
+	  </a>
+  
+	  <nav id="navmenu" class="navmenu">
+		<ul>
+		  <li><a href="#play" class="active" data-i18n="nav.play">Play!</a></li>
+		  <li><a href="#about" data-i18n="nav.about">About</a></li>
+		  <li><a href="#services" data-i18n="nav.profile">Profile</a></li>
+		  <li><a href="#login" data-i18n="nav.login">Login</a></li>
+		  <li><a href="#login" data-i18n="nav.logout">Logout</a></li>
+		  <li class="dropdown"><a><span data-i18n="nav.language">Select Language</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+			<ul>
+			  <li><a data-lang="en" data-i18n="language.english">English</a></li>
+			  <li><a data-lang="ar" data-i18n="language.arabic">العربية</a></li>
+			  <li><a data-lang="de" data-i18n="language.german">Deutsch</a></li>
+			</ul>
+		  </li>
+		</ul>
+		<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+	  </nav>
+	</div>
+  </header>
+  <section id="featured-services" class="featured-services section">
+	<!-- Section Title -->
+	<div class="container section-title aos-init aos-animate" data-aos="fade-up">
+	  <h2 data-i18n="featured.title">Choose Your Game</h2>
+	</div><!-- End Section Title -->
+  
+	<div class="container">
+	  <div class="row gy-4">
+  
+		<div class="col-lg-6 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+		  <div class="card">
+			<img src="../../assets/img/pp-select.webp" alt="" class="img-fluid" data-i18n="[alt]featured.pingPongImg">
+			<div class="card-body">
+			  <h3><a href="#select_pong" class="stretched-link" data-i18n="featured.pingPong">Ping Pong</a></h3>
+			</div>
+		  </div>
+		</div><!-- End Card Item -->
+  
+		<div class="col-lg-6 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+		  <div class="card">
+			<img src="../../assets/img/ttt-select.webp" alt="" class="img-fluid" data-i18n="[alt]featured.tttImg">
+			<div class="card-body">
+			  <h3><a href="#" class="stretched-link" data-i18n="featured.ticTacToe">Tic Tac Toe</a></h3>
+			</div>
+		  </div>
+		</div><!-- End Card Item -->
+	  </div>
+	</div>
+	</section>
+	<!-- End Featured Services Section -->

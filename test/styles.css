@@ -1,0 +1,93 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.custom-header {
+    background: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.header-logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.header-nav li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.header-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+
+.hamburger {
+    width: 30px;
+    height: 3px;
+    background: white;
+    display: block;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: white;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -10px;
+}
+
+.hamburger::after {
+    top: 10px;
+}
+
+@media (max-width: 768px) {
+    .nav-list {
+        display: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list.active {
+        display: block;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .header-nav li {
+        display: block;
+        margin: 0;
+    }
+}

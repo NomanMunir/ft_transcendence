@@ -1,0 +1,59 @@
+{
+	"site": {
+	  "name": "42 Pong"
+	},
+	"nav": {
+	  "play": "Play!",
+	  "about": "About",
+	  "profile": "Profile",
+	  "login": "Login",
+	  "logout": "Logout",
+	  "language": "Select Language"
+	},
+	"home": {
+	  "logoAlt": "Logo",
+	  "title": "Ready, Set, Game On!",
+	  "description": "Step into a world of endless excitement and epic challenges!",
+	  "playButton": "Play!"
+	},
+	"featured": {
+	  "title": "Choose Your Game",
+	  "pingPong": "Ping Pong",
+	  "ticTacToe": "Tic Tac Toe",
+	  "pingPongImg": "Image of ping pong game selection",
+	  "tttImg": "Image of tic tac toe game selection"
+	},
+	"language": {
+	  "english": "English",
+	  "arabic": "Arabic",
+	  "german": "German",
+	  "turkish": "Turkish"
+	},
+	"ppmode": {
+		"title": "Choose Your Mode",
+		"single": "Single Player",
+		"multi": "Multiple Player",
+		"tournament": "Tournament",
+		"singleImg": "Image of Single Player mode",
+		"multiImg": "Image of Multiple Player mode",
+		"tournamentImg": "Image of Tournament mode",
+		"singleDesc": "Futuristic duel between a human and an AI in a minimalistic pong setting",
+		"multiDesc": "Engage in a vibrant pong battle with 2-4 players in a futuristic arcade setting",
+		"tournamentDesc": "Intense 8-player pong tournament captured in a focused, competitive scene"
+	  },
+	"ppmulti": {
+		"title": "Multiple Players",
+		"two": "2 Players",
+		"three": "3 Players",
+		"four": "4 Players",
+		"twoImg": "Image for 2 players mode",
+		"threeImg": "Image for 3 players mode",
+		"fourImg": "Image for 4 players mode"
+	},
+	"404": {
+		"title": "404",
+		"message": "Oops! You broke the internet!",
+		"link": "Go back to safety!"
+	  }
+}
+  
