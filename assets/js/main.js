@@ -2,12 +2,12 @@
 /**
  * Mobile nav toggle
  */
-function initializeMain() {
+function initNavBar()
+{
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
-  if (mobileNavToggleBtn) {
+  if (mobileNavToggleBtn)
     mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
-  }
 
   function mobileNavToogle() {
     console.log("mobileNavToggleBtn clicked");
@@ -33,48 +33,22 @@ function initializeMain() {
     });
   });
 
-function getNestedValue(obj, key)
-{
-  return key.split('.').reduce((currentObject, keyPart) => {
-      return currentObject ? currentObject[keyPart] : undefined;
-  }, obj);
-}
-async function fetchLang(lang)
-{
-  const response = await fetch(`/assets/js/language/${lang}.json`);
-  const data = await response.json();
-  return data;
-}
-function changeLanguage(langObj) {
-  document.querySelectorAll("[data-i18n]").forEach(elem => {
-    const key = elem.getAttribute("data-i18n");
-    if (getNestedValue(langObj, key))
-    {
 
-      elem.textContent = getNestedValue(langObj, key);
 
-      // elem.textContent = lang[key];
-    }
-  });
-}
-
-async function handleLanguageChange(lang) {
-  localStorage.setItem('language', lang);
-  const fetchedLangObj = await fetchLang(lang);
-  changeLanguage(fetchedLangObj);
-  console.log(`Language changed to: ${lang}`);
-}
-
-  document.addEventListener('click', (event) => {
-    if (event.target.matches('.dropdown a[data-lang]')) {
-      event.preventDefault();
-      let lang = event.target.getAttribute('data-lang') || 'en';
-      handleLanguageChange(lang);
-    }
-  });
-
-  const savedLanguage = localStorage.getItem('language') || 'en';
-  handleLanguageChange(savedLanguage); // Apply the saved language
+  const plyForm = document.querySelector('#playerForm');
+  if (plyForm)
+  {
+    plyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const players = [];
+      const formData = new FormData(plyForm);
+      formData.forEach((value, key) => {
+        players.push(value);
+      });
+      localStorage.setItem('players', JSON.stringify(players));        
+      window.location.hash = '#game';
+    });
+  }  
 }
 
   /**
