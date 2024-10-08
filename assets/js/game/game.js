@@ -46,25 +46,24 @@
             this.dy = 3;
         }
 
-        wallCollision() {
-            // Ball bounces off top and bottom walls if there are fewer than 3 or 4 players
-            if (playerNames.length < 3) {
-                // Bounce off the top wall
+        wallCollision() 
+        {
+            if (playerNames.length < 3) // Bounce off the top wall for 2 players
+            {
                 if (this.y - this.radius < 0) this.dy = -this.dy;
             }
         
-            if (playerNames.length < 4) {
-                // Bounce off the bottom wall
+            if (playerNames.length < 4) // Bounce off the bottom wall for 2 or 3 players
+            {
                 if (this.y + this.radius > canvas.height) this.dy = -this.dy;
             }
 
-            // Handling collisions with left and right walls (Player 1 and Player 2 score)
             if (this.x + this.radius > canvas.width) // Ball hits the right wall
             {
-                if (playerNames.length < 3)
+                if (playerNames.length == 2)
                     playerObjects[0].score++; // Player 1 scores
                 else
-                    playerObjects[1].score++; // Player 3 scores
+                    playerObjects[1].score++; // Player 2 scores
                 checkForWinner();
                 if (!gameOver) this.reset(); // Reset the ball
             }
@@ -74,30 +73,24 @@
                 if (playerNames.length < 3)
                     playerObjects[1].score++; // Player 2 scores
                 else
-                    playerObjects[0].score++; // Player 4 scores
+                    playerObjects[0].score++; // Player 1 scores
                 checkForWinner();
                 if (!gameOver) this.reset(); // Reset the ball
             }
         
-            // Handle scoring for Player 3 (bottom wall) in 3 or 4 player mode
             if (playerNames.length >= 3)
             {
                 if (this.y + this.radius > canvas.height) // Ball hits the bottom wall
                 {
                     if (playerNames.length === 4)
-                        playerObjects[3].score++; // Player 3 scores
+                        playerObjects[3].score++; // Player 4 scores
                     checkForWinner();
                     console.log(gameOver);
                     if (!gameOver && playerNames.length == 4) this.reset(); // Reset the ball
                 }
-            }
-        
-            // Handle scoring for Player 4 (top wall) in 4 player mode
-            if (playerNames.length >= 3)
-            {
                 if (this.y - this.radius < 0) // Ball hits the top wall
                 {
-                    playerObjects[2].score++; // Player 4 scores
+                    playerObjects[2].score++; // Player 3 scores
                     checkForWinner();
                     if (!gameOver) this.reset(); // Reset the ball
                 }
@@ -243,11 +236,30 @@
     function displayScores() {
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
+    
         playerObjects.forEach((player, index) => {
-            ctx.fillText(`${player.name}: ${player.score}`, 30 + index * 150, 30);
+            if (player.movementAxis === "vertical") {
+                // Left paddle (Player 1) - score on the left
+                if (player.paddleX === 0) {
+                    ctx.fillText(`${player.name}: ${player.score}`, 20, canvas.height / 2);
+                }
+                // Right paddle (Player 2) - score on the right
+                else if (player.paddleX + player.paddleWidth === canvas.width) {
+                    ctx.fillText(`${player.name}: ${player.score}`, canvas.width - 50, canvas.height / 2);
+                }
+            } else {
+                // Top paddle (Player 3) - score at the top
+                if (player.paddleY === 0) {
+                    ctx.fillText(`${player.name}: ${player.score}`, canvas.width / 2 - 50, 30);
+                }
+                // Bottom paddle (Player 4) - score at the bottom
+                else if (player.paddleY + player.paddleHeight === canvas.height) {
+                    ctx.fillText(`${player.name}: ${player.score}`, canvas.width / 2 - 50, canvas.height - 20);
+                }
+            }
         });
     }
-
+    
     function startGame() {
         if (gameOver) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
