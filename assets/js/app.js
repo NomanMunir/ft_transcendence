@@ -64,10 +64,21 @@ const routes = {
     view: './views/form.html',
     script: [ './assets/js/form.js']
   },
+  '#form8':
+  {
+    view: './views/form.html',
+    script: [ './assets/js/form.js']
+  },
   '#game':
   {
     view: './views/game.html',
     script: [ './assets/js/game/game.js']
+  },
+  '#gameTournament':
+  {
+    view: './views/gameTournament.html',
+    script: [ './assets/js/game/gameTournament.js'],
+    css: [ './assets/css/gameTournament.css']
   },
 };
 
@@ -84,16 +95,32 @@ const handleLocation = async () =>
     const appElement = document.getElementById('app');
     appElement.innerHTML = html;
 
-    route.script.forEach(async (script) => {
-      const scp = document.querySelector(`script[src="${script}"]`)
-      if (scp)
-        document.body.removeChild(scp);
-      console.log(`Loading ${script}`);
-      const scriptTag = document.createElement('script');
-      scriptTag.src = script;
-      document.body.appendChild(scriptTag);
+    if(route.css)
+    {
+      route.css.forEach(async (css) => {
+        const link = document.querySelector(`link[href="${css}"]`)
+        if (link)
+        document.head.removeChild(link);
+        console.log(`Loading ${css}`);
+        const cssTag = document.createElement('link');
+        cssTag.rel = 'stylesheet';
+        cssTag.href = css;
+        document.head.appendChild(cssTag);
+      })
+    }
+    if (route.script)
+    {
 
-    })
+      route.script.forEach(async (script) => {
+        const scp = document.querySelector(`script[src="${script}"]`)
+        if (scp)
+        document.body.removeChild(scp);
+        console.log(`Loading ${script}`);
+        const scriptTag = document.createElement('script');
+        scriptTag.src = script;
+        document.body.appendChild(scriptTag);   
+      })
+    }
     initNavBar();
     const savedLanguage = localStorage.getItem('language') || 'en';
     handleLanguageChange(savedLanguage);
@@ -103,6 +130,3 @@ window.addEventListener('hashchange', handleLocation);
 window.addEventListener('load', (event) => {
     handleLocation();
 });
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log("HI");
-})

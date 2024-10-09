@@ -25,6 +25,9 @@ function initializeForm()
 	case '#form4':
 		formField = 4;
 		break;
+	case '#form8':
+		formField = 8;
+		break;
 	default:
 		formField = 0;
 		break;
@@ -39,6 +42,7 @@ function initializeForm()
 		label.textContent = 'Player ' + index + ':';
 		const input = document.createElement('input');
 		input.setAttribute('required', '');
+		input.maxLength = 10;
 		input.placeholder = 'Enter player ' + index + ' name';
 		input.type = 'text';
 		input.className = 'form-control';

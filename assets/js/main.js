@@ -44,9 +44,18 @@ function initNavBar()
       const formData = new FormData(plyForm);
       formData.forEach((value, key) => {
         players.push(value);
+        console.log(value);
       });
-      localStorage.setItem('players', JSON.stringify(players));        
-      window.location.hash = '#game';
+      localStorage.setItem('players', JSON.stringify(players));
+      if (window.location.hash === '#form8')
+      {
+        window.location.hash = '#gameTournament';
+        localStorage.setItem('tournament', 'true');
+      }
+      else
+      {
+        window.location.hash = '#game';
+      }
     });
   }  
 }

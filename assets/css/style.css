@@ -1827,3 +1827,11 @@ body {
 .form-group {
 	margin-bottom: 20px;
 }
+
+canvas {
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    display: block;
+	background-color: #7dc57696;
+    margin: 0 auto; /* Center the canvas */
+}

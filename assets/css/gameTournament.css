@@ -1,0 +1,60 @@
+#gameTournamnet {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3 columns for 3 rounds */
+	grid-gap: 20px; /* Spacing between rounds */
+	justify-items: center; /* Center the rounds horizontally */
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+}
+.round {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.bracket {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px;
+	width: 200px;
+	background-color: #a2a2a26a;
+	border: 1px solid #333;
+	border-radius: 8px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+	margin: 5px;
+}
+.bracket h3 {
+	font-size: 16px;
+	font-weight: bold;
+	color:#7d987b;
+}
+
+.bracket .player {
+	text-align: center;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.672);
+}
+
+.bracket::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: -15px;
+	width: 30px;
+	height: 2px;
+	background-color: black;
+}
+
+.final-bracket .bracket::after {
+	display: none;
+}
+
+.final-bracket .bracket {
+	background-color: #a2a2a26a;
+	font-weight: bold;
+}
