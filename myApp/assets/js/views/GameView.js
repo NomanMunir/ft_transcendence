@@ -3,7 +3,7 @@ import { startPongGame } from "../game/PongGame.js";
 
 export function GameView() {
   const container = document.createElement("div");
-  container.className = "game-container";
+  container.className = "featured-services section";
 
   const canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";
@@ -15,9 +15,8 @@ export function GameView() {
   // Start the game with player data from the state
   const state = getState();
   const playerNames = state.players;
-
   if (!playerNames || playerNames.length === 0) {
-    window.location.hash = "#form"; // Go back to form if player data is missing
+    window.location.hash = "#select_pong";
     return;
   }
 

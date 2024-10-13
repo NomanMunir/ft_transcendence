@@ -10,8 +10,9 @@ function validatePlayerName(name) {
 
 // Helper function to show error messages
 function showErrorMessage(messageText) {
-  message.style.display = "block";
-  message.textContent = messageText;
+  // message.style.display = "block";
+  // message.textContent = messageText;
+  console.log(messageText);
 }
 
 export function FormView() {
@@ -68,10 +69,15 @@ export function FormView() {
         label.textContent = `Enter name for Player ${currentPlayerIndex + 1}:`;
         input.value = ""; // Clear input for the next player
         message.style.display = "none"; // Hide error message
-      } else {
+      }
+      else
+      {
         // All players have been named, proceed with the game logic
         updateState({ players: playerNames });
-        navigateTo("#game"); // Navigate to the next part of your app
+        if (state.tournament)
+          navigateTo("#tournament");
+        else
+          navigateTo("#game");
       }
     }
   });

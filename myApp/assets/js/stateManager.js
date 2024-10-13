@@ -1,7 +1,7 @@
 const state = {
   playerCount: 0, // Instead of initializing players array
   players: [],
-  tournament: null,
+  tournament: false,
 };
 
 export function getState() {

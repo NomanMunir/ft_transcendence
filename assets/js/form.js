@@ -1,7 +1,9 @@
 initializeForm();
 
+
 function initializeForm()
 {
+	const names = ["Alaa", "Nauman", "Ahmed", "Ali", "Omar", "Khaled", "Hassan", "Mahmoud", "Amr", "Tamer", "Hany", "Mina", "Nour", "Sara", "Nada", "Noha", "Mai", "Mona", "Mervat", "Nermeen", "Naglaa", "Nagwa", "Nahla", "Nahed", "Nihal"]
 	const plyForm = document.querySelector('#playerForm');
 	if (!plyForm)
 		return;
@@ -42,6 +44,7 @@ function initializeForm()
 		label.textContent = 'Player ' + index + ':';
 		const input = document.createElement('input');
 		input.setAttribute('required', '');
+		input.value = names[index - 1];
 		input.maxLength = 10;
 		input.placeholder = 'Enter player ' + index + ' name';
 		input.type = 'text';

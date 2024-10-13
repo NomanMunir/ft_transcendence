@@ -1,6 +1,15 @@
 import { drawBackground } from "./GameUtils.js";
+import { updateState, getState } from "../stateManager.js";
 
-export function startGame(ctx, canvas, ball, playerObjects) {
+export function startGame(resolve)
+{
+  const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState();
+  if (gameOver)
+  {
+    cancelAnimationFrame(gameLoopID);
+    resolve(winner);
+    return;
+  }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground(ctx, canvas);
 
@@ -10,12 +19,11 @@ export function startGame(ctx, canvas, ball, playerObjects) {
     player.update();
   });
 
-  ball.wallCollision(playerObjects);
+  ball.wallCollision();
   ball.update();
 
-  displayScores(ctx, playerObjects);
-
-  requestAnimationFrame(() => startGame(ctx, canvas, ball, playerObjects));
+  displayScores(ctx, canvas, playerObjects);
+  updateState({ gameLoopID: requestAnimationFrame(() => startGame(resolve)) });
 }
 
 function displayScores(ctx, canvas, playerObjects) {

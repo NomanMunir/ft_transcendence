@@ -39,6 +39,7 @@ function initNavBar()
   if (plyForm)
   {
     plyForm.addEventListener('submit', async (e) => {
+      console.log("playerForm submitted");
       e.preventDefault();
       const players = [];
       const formData = new FormData(plyForm);
@@ -55,6 +56,7 @@ function initNavBar()
       else
       {
         window.location.hash = '#game';
+        localStorage.setItem('tournament', 'false');
       }
     });
   }  

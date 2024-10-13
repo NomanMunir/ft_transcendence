@@ -1,8 +1,10 @@
 #gameTournamnet {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr); /* 3 columns for 3 rounds */
-	grid-gap: 20px; /* Spacing between rounds */
-	justify-items: center; /* Center the rounds horizontally */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 50px;
+	background: transparent;
 }
 
 p {
@@ -58,3 +60,46 @@ p {
 	background-color: #a2a2a26a;
 	font-weight: bold;
 }
+
+#winnerDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1a1a1a; /* Dark background to suit the gaming theme */
+    color: #00ffcc; /* Neon-like color to stand out */
+    font-size: 40px; /* Larger and more impactful font size */
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    border-radius: 15px; /* Smooth, rounded corners */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Deep shadow for text */
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.7), 0 0 40px rgba(0, 255, 204, 0.7); /* Glowing neon effect */
+    animation: winnerAnimation 1.5s infinite alternate ease-in-out;
+    text-align: center; 
+    /* max-width: auto; Ensure the box doesn't stretch too wide */
+    margin-left: auto; /* Centering the box */
+    margin-right: auto; /* Centering the box */
+}
+
+/* Winner Animation */
+@keyframes winnerAnimation {
+    0% {
+        transform: scale(1);
+        background-color: #1a1a1a; /* Dark background */
+        box-shadow: 0 0 20px #7cc576, 0 0 40px #7cc576; /* Neon glow */
+    }
+    100% {
+        transform: scale(1.1);
+        background-color: #333333; /* Slightly lighter color on hover */
+        box-shadow: 0 0 30px #7cc576, 0 0 60px #7cc576; /* Stronger glow */
+    }
+}
+
+#winnerDisplay h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	color: rgba(255, 255, 255, 0.501);
+}
+

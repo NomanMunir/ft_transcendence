@@ -110,20 +110,30 @@ const handleLocation = async () =>
     }
     if (route.script)
     {
-
+      
       route.script.forEach(async (script) => {
         const scp = document.querySelector(`script[src="${script}"]`)
         if (scp)
-        document.body.removeChild(scp);
+          document.body.removeChild(scp);
         console.log(`Loading ${script}`);
         const scriptTag = document.createElement('script');
         scriptTag.src = script;
         document.body.appendChild(scriptTag);   
       })
     }
+    console.log(localStorage.getItem('players'))
     initNavBar();
     const savedLanguage = localStorage.getItem('language') || 'en';
     handleLanguageChange(savedLanguage);
+    switch (path)
+    {
+      case "#game":
+        console.log("#game");
+        startPongGame();
+      default:
+        console.log("default");
+        break;
+    }
   };
 
 window.addEventListener('hashchange', handleLocation);

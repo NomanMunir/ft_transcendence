@@ -1,33 +1,38 @@
 import { Ball } from "./Ball.js";
 import { Player } from "./Player.js";
+import { keyHandler, startCountdownWithDetails } from "./GameUtils.js";
+import { getState, updateState } from "../stateManager.js";
 import { startGame } from "./GameLogic.js";
-import { keyHandler } from "./GameUtils.js";
 
-export function startPongGame(playerNames, canvas) {
+export async function startPongGame(playerNames, canvas)
+{
+  const { width, height } = canvas;
   const ctx = canvas.getContext("2d");
   const ball = new Ball(
-    canvas.width / 2,
-    canvas.height / 2,
+    width / 2,
+    height / 2,
     10,
     5,
     5,
     canvas,
     ctx
   );
-
+  console.log(playerNames);
   const playerObjects = createPlayers(playerNames, canvas, ctx);
-
   document.addEventListener("keydown", (e) =>
-    keyHandler(e, true, playerObjects)
+  keyHandler(e, true, playerObjects)
   );
   document.addEventListener("keyup", (e) =>
-    keyHandler(e, false, playerObjects)
+  keyHandler(e, false, playerObjects)
   );
-
-  startGame(ctx, canvas, ball, playerObjects);
+  updateState({canvas, ctx, ball, winningScore: 2, playerObjects, gameOver: false});
+  await startCountdownWithDetails();
+  return new Promise((resolve) => {
+    startGame(resolve);
+  })
 }
-
-function createPlayers(playerNames, canvas, ctx) {
+function createPlayers(playerNames, canvas, ctx)
+{
   let playerObjects = [];
 
   if (playerNames.length >= 2) {

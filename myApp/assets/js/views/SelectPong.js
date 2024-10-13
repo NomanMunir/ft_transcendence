@@ -1,3 +1,6 @@
+import { updateState } from "../stateManager.js";
+import { navigateTo } from "../routes.js";
+
 export function SelectPong() {
   const section = document.createElement("section");
   section.id = "featured-services";
@@ -10,7 +13,6 @@ export function SelectPong() {
     
     <div class="container">
       <div class="row gy-4">
-
         <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
           <div class="card">
             <img src="../assets/img/pp_single_img.webp" alt="" class="img-fluid" data-i18n="[alt]ppmode.singleImg">
@@ -39,7 +41,7 @@ export function SelectPong() {
           <div class="card">
             <img src="../assets/img/pp_tournament_img.webp" alt="" class="img-fluid" data-i18n="[alt]ppmode.tournamentImg">
             <div class="card-body">
-              <h3><a href="#form8" class="stretched-link" data-i18n="ppmode.tournament">Tournament</a></h3>
+              <h3><a href="#form" id="eight_players" class="stretched-link" data-i18n="ppmode.tournament">Tournament</a></h3>
               <div class="card-content">
                 <p data-i18n="ppmode.tournamentDesc">Intense 8-player pong tournament captured in a focused, competitive scene</p>
               </div>
@@ -51,5 +53,9 @@ export function SelectPong() {
     </div>
   `;
 
+    section.querySelector("#eight_players").addEventListener("click", (e) => {
+      updateState({tournament: true, playerCount: 8});
+      navigateTo("#form");
+    });
   return section;
 }

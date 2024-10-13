@@ -67,35 +67,36 @@ export class Player {
     }
   }
 
-  checkCollision(ball) {
+  checkCollision(ball)
+  {
     if (this.movementAxis === "vertical") {
-      if (
-        ball.x - ball.radius < this.paddleX + this.paddleWidth &&
-        ball.x + ball.radius > this.paddleX &&
-        ball.y > this.paddleY &&
-        ball.y < this.paddleY + this.paddleHeight
-      ) {
-        ball.dx = -ball.dx;
-        this.paddleHits++;
-        if (this.paddleHits >= 3) {
-          ball.increaseSpeed();
-          this.paddleHits = 0;
+        if (
+            ball.x - ball.radius < this.paddleX + this.paddleWidth &&
+            ball.x + ball.radius > this.paddleX &&
+            ball.y > this.paddleY &&
+            ball.y < this.paddleY + this.paddleHeight
+        ) {
+            ball.dx = -ball.dx; 
+            this.paddleHits++;
+            if (this.paddleHits >= 3) {
+                ball.increaseSpeed(); 
+                this.paddleHits = 0; 
+            }
         }
-      }
     } else {
-      if (
-        ball.y - ball.radius < this.paddleY + this.paddleHeight &&
-        ball.y + ball.radius > this.paddleY &&
-        ball.x > this.paddleX &&
-        ball.x < this.paddleX + this.paddleWidth
-      ) {
-        ball.dy = -ball.dy;
-        this.paddleHits++;
-        if (this.paddleHits >= 3) {
-          ball.increaseSpeed();
-          this.paddleHits = 0;
+        if (
+            ball.y - ball.radius < this.paddleY + this.paddleHeight &&
+            ball.y + ball.radius > this.paddleY &&
+            ball.x > this.paddleX &&
+            ball.x < this.paddleX + this.paddleWidth
+        ) {
+            ball.dy = -ball.dy; 
+            this.paddleHits++;
+            if (this.paddleHits >= 3) {
+                ball.increaseSpeed(); 
+                this.paddleHits = 0; 
+            }
         }
-      }
     }
   }
 }
