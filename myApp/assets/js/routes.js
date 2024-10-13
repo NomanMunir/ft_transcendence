@@ -10,7 +10,7 @@ import { NotFound } from "./views/NotFound.js";
 import { MultiPong } from "./views/MultiPong.js";
 import { GameView } from "./views/GameView.js";
 import { createBracket } from "./game/tournament.js";
-// Define the routes
+
 const routes = {
   "#home": Home,
   "#play": Play,
@@ -18,17 +18,29 @@ const routes = {
   "#select_pong": SelectPong,
   "#multi_pong": MultiPong,
   "#game": GameView,
-  default: Home, // Default route if hash is empty or doesn't match
+  default: Home,
 };
+
+function sanitizePath(path)
+{
+  const allowedRoutes = Object.keys(routes).concat(["#tournament"]);
+  return allowedRoutes.includes(path) ? path : "#home";
+}
+
+function sanitizeContent(content)
+{
+  const element = document.createElement('div');
+  element.textContent = content;
+  return element.innerHTML; // Safely return the sanitized content
+}
 
 // Handle routing logic
 export function handleLocation() {
-  const path = window.location.hash || "#home";
+  const path = sanitizePath(window.location.hash || "#home");
   const app = document.getElementById("app");
 
   app.innerHTML = "";
 
-  console.log(path)
   switch (path) {
     case "#tournament":
       app.appendChild(TournamentView());

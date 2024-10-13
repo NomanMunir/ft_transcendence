@@ -1,7 +1,7 @@
 import { getState, updateState } from "../stateManager.js";
 import { startGameWithCountdownAndPromise } from "./PongGame.js";
 
-const { ctx, canvas, playerObjects, ball, tournament} = getState();
+const { ctx, canvas, playerObjects, ball, tournament} = getState().pongGame;
 
 export function drawBackground(ctx, canvas) {
   const {width, height} = canvas;
@@ -70,13 +70,13 @@ function displayWinner(winner)
       () => {
         playerObjects.forEach((player) => player.reset());
         ball.reset();
-        updateState({gameOver: false});
+        updateState({pongGame:{gameOver: false}});
         startGameWithCountdownAndPromise();
       },
       { once: true }
       );
   }
-  updateState({gameOver: true, winner: winner}); 
+  updateState({pongGame:{gameOver: true, winner: winner}});
 }
 
 export function startCountdownWithDetails()

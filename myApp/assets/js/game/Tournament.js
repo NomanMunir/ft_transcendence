@@ -60,7 +60,7 @@ function markLoser(player) {
 
 export async function createBracket()
 {
-    const { players } = getState();
+    const { players} = getState().pongGame;
     const cnv = document.querySelector('#gameCanvas');
     if (!players || players.length !== 8) {
       window.location.hash = '#select_pong';

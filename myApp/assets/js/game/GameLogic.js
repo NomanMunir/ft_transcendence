@@ -24,7 +24,7 @@ export function startGame(resolve)
   ball.update();
 
   displayScores(ctx, canvas, playerObjects);
-  updateState({game: { gameLoopID: requestAnimationFrame(() => startGame(resolve)) }});
+  updateState({pongGame: { gameLoopID: requestAnimationFrame(() => startGame(resolve)) }});
 }
 
 function displayScores(ctx, canvas, playerObjects) {
