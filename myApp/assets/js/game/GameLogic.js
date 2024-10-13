@@ -1,9 +1,10 @@
 import { drawBackground } from "./GameUtils.js";
 import { updateState, getState } from "../stateManager.js";
 
+const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState().pongGame;
+
 export function startGame(resolve)
 {
-  const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState();
   if (gameOver)
   {
     cancelAnimationFrame(gameLoopID);
@@ -23,7 +24,7 @@ export function startGame(resolve)
   ball.update();
 
   displayScores(ctx, canvas, playerObjects);
-  updateState({ gameLoopID: requestAnimationFrame(() => startGame(resolve)) });
+  updateState({game: { gameLoopID: requestAnimationFrame(() => startGame(resolve)) }});
 }
 
 function displayScores(ctx, canvas, playerObjects) {

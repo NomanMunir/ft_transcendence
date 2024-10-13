@@ -1,7 +1,17 @@
 const state = {
-  playerCount: 0, // Instead of initializing players array
+  playerCount: 0, // General data
   players: [],
   tournament: false,
+  
+  // Game-related data under the 'game' object
+  pongGame: {
+    playerObjects: [],
+    ball: null,
+    gameOver: false,
+    gameLoopID: null,
+    canvas: null,
+    ctx: null,
+  }
 };
 
 export function getState() {
@@ -9,16 +19,27 @@ export function getState() {
 }
 
 export function updateState(newState) {
-    Object.assign(state, newState);
+  // Merge only at the top level
+  Object.keys(newState).forEach((key) => {
+    if (typeof newState[key] === 'object' && !Array.isArray(newState[key]) && newState[key] !== null) {
+      state[key] = { ...state[key], ...newState[key] }; // Deep merge for objects
+    } else {
+      state[key] = newState[key];
+    }
+  });
 }
-
 export function setPlayerNames(names) {
-  state.playerNames = names;
+  state.players = names;
 }
 
 export function resetGameState() {
-  state.playerObjects = [];
-  state.ball = null;
-  state.gameOver = false;
-  state.gameLoopID = null;
+  // Resetting only the game-related data
+  state.game = {
+    playerObjects: [],
+    ball: null,
+    gameOver: false,
+    gameLoopID: null,
+    canvas: null,
+    ctx: null,
+  };
 }

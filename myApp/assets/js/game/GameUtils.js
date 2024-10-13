@@ -1,5 +1,7 @@
 import { getState, updateState } from "../stateManager.js";
-import { startGame } from "./GameLogic.js";
+import { startGameWithCountdownAndPromise } from "./PongGame.js";
+
+const { ctx, canvas, playerObjects, ball, tournament} = getState();
 
 export function drawBackground(ctx, canvas) {
   const {width, height} = canvas;
@@ -37,7 +39,6 @@ export function keyHandler(e, isPressed, playerObjects) {
 
 export function checkForWinner()
 {
-  const { playerObjects, winningScore } = getState();
 
   playerObjects.forEach((player) => {
     if (player.score >= winningScore) {
@@ -48,8 +49,6 @@ export function checkForWinner()
 
 function displayWinner(winner)
 {
-  const { ctx, canvas, playerObjects, ball, tournament} = getState();
-
   const {width, height} = canvas;
   ctx.clearRect(0, 0, width, height);
   ctx.font = "40px Arial";
@@ -72,7 +71,7 @@ function displayWinner(winner)
         playerObjects.forEach((player) => player.reset());
         ball.reset();
         updateState({gameOver: false});
-        startCountdownWithDetails();
+        startGameWithCountdownAndPromise();
       },
       { once: true }
       );
@@ -83,7 +82,6 @@ function displayWinner(winner)
 export function startCountdownWithDetails()
 {
   return new Promise((resolve) => {
-    const { canvas, ctx, playerObjects } = getState();
     const {width, height} = canvas;
     let countdown = 2; 
     const countdownInterval = setInterval(() => {
