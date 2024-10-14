@@ -34,7 +34,7 @@ export function setPlayerNames(names) {
 
 export function resetGameState() {
   // Resetting only the game-related data
-  state.game = {
+  state.pongGame = {
     playerObjects: [],
     ball: null,
     gameOver: false,

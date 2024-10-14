@@ -42,7 +42,7 @@ export class Ball
 
   wallCollision()
   {
-    const { playerObjects, gameOver, canvas} = getState();
+    const { playerObjects, gameOver, canvas} = getState().pongGame;
     if (playerObjects.length < 3)
         if (this.y - this.radius < 0) this.dy = -this.dy;
     if (playerObjects.length < 4)

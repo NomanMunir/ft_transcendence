@@ -1,10 +1,10 @@
 import { drawBackground } from "./GameUtils.js";
 import { updateState, getState } from "../stateManager.js";
 
-const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState().pongGame;
-
 export function startGame(resolve)
 {
+  const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState().pongGame;
+
   if (gameOver)
   {
     cancelAnimationFrame(gameLoopID);

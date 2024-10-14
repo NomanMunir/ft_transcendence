@@ -74,8 +74,11 @@ export function FormView() {
       {
         // All players have been named, proceed with the game logic
         updateState({ players: playerNames });
-        if (state.tournament)
+        if (playerNames.length === 8)
+        {
+          updateState( {pongGame: { tournament: true } } );
           navigateTo("#tournament");
+        }
         else
           navigateTo("#game");
       }

@@ -1,8 +1,6 @@
 import { getState, updateState } from "../stateManager.js";
 import { startGameWithCountdownAndPromise } from "./PongGame.js";
 
-const { ctx, canvas, playerObjects, ball, tournament} = getState().pongGame;
-
 export function drawBackground(ctx, canvas) {
   const {width, height} = canvas;
   const gradient = ctx.createRadialGradient(
@@ -36,10 +34,9 @@ export function keyHandler(e, isPressed, playerObjects) {
   });
 }
 
-
 export function checkForWinner()
 {
-
+  const {playerObjects, winningScore} = getState().pongGame;
   playerObjects.forEach((player) => {
     if (player.score >= winningScore) {
       displayWinner(player.name);
@@ -49,6 +46,8 @@ export function checkForWinner()
 
 function displayWinner(winner)
 {
+  const { ctx, canvas, playerObjects, ball, tournament} = getState().pongGame;
+
   const {width, height} = canvas;
   ctx.clearRect(0, 0, width, height);
   ctx.font = "40px Arial";
@@ -60,11 +59,10 @@ function displayWinner(winner)
   } else {
     ctx.fillText(`${winner} Lose!`, width / 2, height / 2);
   }
+  console.log(getState());
   if (!tournament)
   {
-
     ctx.fillText("Click to restart", width / 2, height / 2 + 50);
-    
     canvas.addEventListener(
       "click",
       () => {
@@ -81,6 +79,7 @@ function displayWinner(winner)
 
 export function startCountdownWithDetails()
 {
+  const { ctx, canvas, playerObjects,} = getState().pongGame;
   return new Promise((resolve) => {
     const {width, height} = canvas;
     let countdown = 2; 

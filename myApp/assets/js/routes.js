@@ -1,6 +1,5 @@
 // routes.js
 
-// Import views (these are your page components)
 import { Home } from "./views/Home.js";
 import { Play } from "./views/Play.js";
 import { TournamentView } from "./views/TournamentView.js";
@@ -52,6 +51,7 @@ export function handleLocation() {
   }
 }
 
-export function navigateTo(hash) {
+export function navigateTo(hash)
+{
   window.location.hash = hash;
 }
