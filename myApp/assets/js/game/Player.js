@@ -9,7 +9,8 @@ export class Player {
     upKey,
     downKey,
     canvas,
-    ctx
+    ctx,
+    isAI = false
   ) {
     this.name = name;
     this.paddleX = paddleX;
@@ -26,14 +27,17 @@ export class Player {
     this.downPressed = false;
     this.score = 0;
     this.paddleHits = 0;
+    this.isAI = isAI;
   }
 
-  reset() {
+  reset()
+  {
     this.score = 0;
     this.paddleHits = 0;
   }
 
-  draw() {
+  draw()
+  {
     this.ctx.beginPath();
     this.ctx.rect(
       this.paddleX,
@@ -49,20 +53,20 @@ export class Player {
     this.ctx.shadowBlur = 0;
   }
 
-  update() {
-    if (this.movementAxis === "vertical") {
-      if (this.upPressed && this.paddleY > 0) this.paddleY -= this.speed;
-      if (
-        this.downPressed &&
-        this.paddleY < this.canvas.height - this.paddleHeight
-      )
+  update()
+  {
+    if (this.movementAxis === "vertical")
+    {
+      if (this.upPressed && this.paddleY > 0) 
+        this.paddleY -= this.speed;
+      if (this.downPressed && this.paddleY < this.canvas.height - this.paddleHeight)
         this.paddleY += this.speed;
-    } else {
-      if (this.upPressed && this.paddleX > 0) this.paddleX -= this.speed;
-      if (
-        this.downPressed &&
-        this.paddleX < this.canvas.width - this.paddleWidth
-      )
+    }
+    else 
+    {
+      if (this.upPressed && this.paddleX > 0)
+        this.paddleX -= this.speed;
+      if (this.downPressed && this.paddleX < this.canvas.width - this.paddleWidth)
         this.paddleX += this.speed;
     }
   }
@@ -70,33 +74,51 @@ export class Player {
   checkCollision(ball)
   {
     if (this.movementAxis === "vertical") {
-        if (
-            ball.x - ball.radius < this.paddleX + this.paddleWidth &&
-            ball.x + ball.radius > this.paddleX &&
-            ball.y > this.paddleY &&
-            ball.y < this.paddleY + this.paddleHeight
-        ) {
-            ball.dx = -ball.dx; 
-            this.paddleHits++;
-            if (this.paddleHits >= 3) {
-                ball.increaseSpeed(); 
-                this.paddleHits = 0; 
-            }
-        }
-    } else {
-        if (
-            ball.y - ball.radius < this.paddleY + this.paddleHeight &&
-            ball.y + ball.radius > this.paddleY &&
-            ball.x > this.paddleX &&
-            ball.x < this.paddleX + this.paddleWidth
-        ) {
-            ball.dy = -ball.dy; 
-            this.paddleHits++;
-            if (this.paddleHits >= 3) {
-                ball.increaseSpeed(); 
-                this.paddleHits = 0; 
-            }
+      if (
+        ball.x - ball.radius < this.paddleX + this.paddleWidth && // Ball hits paddle's right side
+        ball.x + ball.radius > this.paddleX &&                    // Ball hits paddle's left side
+        ball.y + ball.radius > this.paddleY &&                    // Ball hits paddle's top
+        ball.y - ball.radius < this.paddleY + this.paddleHeight    // Ball hits paddle's bottom
+    ) {
+        // Ball collided with the paddle, now check which side
+        const ballCenterY = ball.y;
+        const paddleCenterY = this.paddleY + this.paddleHeight / 2;
+    
+        // Adjust bounce angle based on where the ball hit the paddle (higher or lower)
+        const hitPosition = (ballCenterY - paddleCenterY) / (this.paddleHeight / 2);
+        
+        ball.dx = -ball.dx;
+        ball.dy += hitPosition * 2;
+    
+        this.paddleHits++;
+        if (this.paddleHits >= 3) {
+            ball.increaseSpeed(); 
+            this.paddleHits = 0; 
         }
     }
+    
+    } else if (
+      ball.y - ball.radius < this.paddleY + this.paddleHeight &&  // Ball hits bottom of the paddle
+      ball.y + ball.radius > this.paddleY &&                     // Ball hits top of the paddle
+      ball.x + ball.radius > this.paddleX &&                     // Ball hits left side
+      ball.x - ball.radius < this.paddleX + this.paddleWidth      // Ball hits right side
+  ) {
+      // Ball collided with the paddle, now check which side
+      const ballCenterX = ball.x;
+      const paddleCenterX = this.paddleX + this.paddleWidth / 2;
+  
+      // Adjust bounce angle based on where the ball hit the paddle (left or right)
+      const hitPosition = (ballCenterX - paddleCenterX) / (this.paddleWidth / 2);
+  
+      ball.dy = -ball.dy;  // Reverse ball direction on Y-axis
+      ball.dx += hitPosition * 2;  // Adjust the ball's X direction based on where it hit
+  
+      this.paddleHits++;
+      if (this.paddleHits >= 3) {
+          ball.increaseSpeed();  // Increase the speed of the ball after 3 hits
+          this.paddleHits = 0;  // Reset hit count
+      }
+  }
+  
   }
 }

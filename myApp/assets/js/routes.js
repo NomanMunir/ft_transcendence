@@ -26,14 +26,6 @@ function sanitizePath(path)
   return allowedRoutes.includes(path) ? path : "#home";
 }
 
-function sanitizeContent(content)
-{
-  const element = document.createElement('div');
-  element.textContent = content;
-  return element.innerHTML; // Safely return the sanitized content
-}
-
-// Handle routing logic
 export function handleLocation() {
   const path = sanitizePath(window.location.hash || "#home");
   const app = document.getElementById("app");

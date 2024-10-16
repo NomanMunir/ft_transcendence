@@ -1,6 +1,9 @@
 import { drawBackground } from "./GameUtils.js";
 import { updateState, getState } from "../stateManager.js";
 
+export let aiTolerance = 50;
+export let aiSpeedFactor = 0.7;
+
 export function startGame(resolve)
 {
   const {winner, gameLoopID, gameOver, playerObjects, ball, canvas, ctx} = getState().pongGame;
@@ -28,20 +31,16 @@ export function startGame(resolve)
 }
 
 function displayScores(ctx, canvas, playerObjects) {
-  // Set up the font, text alignment, and color for displaying scores
   ctx.font = "14px Arial";
   ctx.textAlign = "left";
   ctx.fillStyle = "white";
 
-  // Loop through each player and display their score based on their paddle position
   playerObjects.forEach((player) => {
     if (player.movementAxis === "vertical") {
-      // For vertical paddles (left and right sides of the canvas)
       if (player.paddleX === 0) {
-        // Player on the left side
         ctx.fillText(`${player.name}: ${player.score}`, 40, canvas.height / 2);
-      } else if (player.paddleX + player.paddleWidth === canvas.width) {
-        // Player on the right side
+      } else if (player.paddleX + player.paddleWidth === canvas.width)
+      {
         ctx.fillText(
           `${player.name}: ${player.score}`,
           canvas.width - 70,

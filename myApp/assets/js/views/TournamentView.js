@@ -3,7 +3,6 @@ import { getState } from '../stateManager.js';
 export function TournamentView() {
     const container = document.createElement('div');
     container.id = "gameTournamnet";
-    container.classList.add('vh-100', 'd-flex', 'justify-content-center', 'align-items-center'); // Full height, centered content
     container.innerHTML = `
     <div class="container h-100">
         <div class="row h-100 d-flex justify-content-center align-items-center">

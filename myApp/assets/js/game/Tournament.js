@@ -1,4 +1,4 @@
-import { getState } from "../stateManager.js";
+import { getState, resetGameState, updateState } from "../stateManager.js";
 import { startPongGame } from "./PongGame.js";
 
 function displayWinner(winner) {
@@ -7,6 +7,20 @@ function displayWinner(winner) {
             <h1>🏆 ${winner} is the winner! 🏆</h1>
         </div>
     `;
+    const {canvas, ctx} = getState().pongGame;
+    const {width, height} = canvas;
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = "40px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("Click to restart", width / 2, height / 2 + 50);
+    canvas.addEventListener(
+      "click",
+      () => {
+        createBracket();
+      },
+      { once: true }
+      );
 }
 
 function shuffle(array) {
@@ -60,7 +74,9 @@ function markLoser(player) {
 
 export async function createBracket()
 {
-    const { players} = getState();
+    const { players } = getState();
+    resetGameState();
+    updateState({pongGame:{tournament: true}});
     const cnv = document.querySelector('#gameCanvas');
     if (!players || players.length !== 8) {
       window.location.hash = '#select_pong';
@@ -77,6 +93,8 @@ export async function createBracket()
         console.log(shuffledPlayers)
       for (let i = 0; i < shuffledPlayers.length; i++)
       {
+        // if (shuffledPlayers.length === 2)
+        
         const winner = await startPongGame([shuffledPlayers[i], shuffledPlayers[i + 1]], cnv);
   
         // Remove the loser from the array, keep the winner for the next round
@@ -89,7 +107,7 @@ export async function createBracket()
         }
       }
     }
-  
+    
     // After all rounds, the remaining player is the champion
     displayWinner(shuffledPlayers[0]);
   }

@@ -29,8 +29,8 @@ export function drawBackground(ctx, canvas) {
 
 export function keyHandler(e, isPressed, playerObjects) {
   playerObjects.forEach((player) => {
-    if (e.key === player.upKey) player.upPressed = isPressed;
-    if (e.key === player.downKey) player.downPressed = isPressed;
+    if (e.key === player.upKey && !player.isAI) player.upPressed = isPressed;
+    if (e.key === player.downKey && !player.isAI) player.downPressed = isPressed;
   });
 }
 
@@ -44,9 +44,18 @@ export function checkForWinner()
   });
 }
 
+function handleGameRestart()
+{
+  const {playerObjects, ball} = getState().pongGame;
+  playerObjects.forEach((player) => player.reset());
+  ball.reset();
+  updateState({pongGame:{gameOver: false}});
+  startGameWithCountdownAndPromise();
+}
+
 function displayWinner(winner)
 {
-  const { ctx, canvas, playerObjects, ball, tournament} = getState().pongGame;
+  const { ctx, canvas, playerObjects, tournament} = getState().pongGame;
 
   const {width, height} = canvas;
   ctx.clearRect(0, 0, width, height);
@@ -59,20 +68,10 @@ function displayWinner(winner)
   } else {
     ctx.fillText(`${winner} Lose!`, width / 2, height / 2);
   }
-  console.log(getState());
   if (!tournament)
   {
     ctx.fillText("Click to restart", width / 2, height / 2 + 50);
-    canvas.addEventListener(
-      "click",
-      () => {
-        playerObjects.forEach((player) => player.reset());
-        ball.reset();
-        updateState({pongGame:{gameOver: false}});
-        startGameWithCountdownAndPromise();
-      },
-      { once: true }
-      );
+    canvas.addEventListener("click", handleGameRestart, { once: true });
   }
   updateState({pongGame:{gameOver: true, winner: winner}});
 }

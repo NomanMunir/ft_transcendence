@@ -2,8 +2,8 @@ import { getState } from "../stateManager.js"
 import { startPongGame } from "../game/PongGame.js";
 
 export function GameView() {
-  const container = document.createElement("div");
-  container.className = "featured-services section";
+  const container = document.createElement("section");
+  container.className = "form-section";
 
   const canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";

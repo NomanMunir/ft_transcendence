@@ -1,8 +1,9 @@
 import { Ball } from "./Ball.js";
 import { Player } from "./Player.js";
 import { keyHandler, startCountdownWithDetails } from "./GameUtils.js";
-import { getState, updateState } from "../stateManager.js";
+import { updateState } from "../stateManager.js";
 import { startGame } from "./GameLogic.js";
+import { AI } from "./AI.js";
 
 export async function startPongGame(playerNames, canvas)
 {
@@ -32,13 +33,12 @@ export async function startPongGame(playerNames, canvas)
         canvas,
         ctx,
         ball,
-        winningScore: 2,
+        winningScore: 6,
         playerObjects,
         gameOver: false,
       }
     }
   );
-  console.log(getState());
   const winner  = await startGameWithCountdownAndPromise();
   return winner;
 }
@@ -54,21 +54,39 @@ function createPlayers(playerNames, canvas, ctx)
 {
   let playerObjects = [];
 
-  if (playerNames.length >= 2) {
+  playerObjects.push(
+    new Player(
+      playerNames[0],
+      0,
+      (canvas.height - 100) / 2,
+      10,
+      100,
+      "vertical",
+      "w",
+      "s",
+      canvas,
+      ctx
+    )
+  );
+
+  if (playerNames.length === 1)
+  {
     playerObjects.push(
-      new Player(
-        playerNames[0],
-        0,
+      new AI(
+        "AI",
+        canvas.width - 10,
         (canvas.height - 100) / 2,
         10,
         100,
         "vertical",
-        "w",
-        "s",
+        "ArrowUp",
+        "ArrowDown",
         canvas,
         ctx
       )
     );
+  }
+  if (playerNames.length >= 2) {
     playerObjects.push(
       new Player(
         playerNames[1],
