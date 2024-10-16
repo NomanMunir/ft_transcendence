@@ -54,6 +54,7 @@ function createPlayers(playerNames, canvas, ctx)
 {
   let playerObjects = [];
 
+  
   playerObjects.push(
     new Player(
       playerNames[0],
@@ -68,7 +69,6 @@ function createPlayers(playerNames, canvas, ctx)
       ctx
     )
   );
-
   if (playerNames.length === 1)
   {
     playerObjects.push(
@@ -85,6 +85,8 @@ function createPlayers(playerNames, canvas, ctx)
         ctx
       )
     );
+    if (playerObjects[0].name === "AI")
+        playerObjects[0].name = "AI (Player)";
   }
   if (playerNames.length >= 2) {
     playerObjects.push(

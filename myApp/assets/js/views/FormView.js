@@ -5,13 +5,13 @@ import { getState, updateState } from "../stateManager.js";
 function validatePlayerName(name) {
   // You can add more advanced validation (e.g., regex, filtering malicious input)
   const maliciousPattern = /[^a-zA-Z0-9\s]/; // Allow only alphanumeric and space characters
-  return name.length > 0 && name.length < 10 && !maliciousPattern.test(name);
+  return name.length > 0 && name.length <= 10 && !maliciousPattern.test(name);
 }
 
 // Helper function to show error messages
 function showErrorMessage(messageText) {
-  // message.style.display = "block";
-  // message.textContent = messageText;
+  message.style.display = "block";
+  message.textContent = messageText;
   console.log(messageText);
 }
 
@@ -35,6 +35,8 @@ export function FormView() {
   input.setAttribute("id", "playerNameInput");
   input.setAttribute("placeholder", "Enter player's name");
   input.setAttribute("required", true);
+  input.setAttribute("maxlength", 10);
+  input.setAttribute("autofocus", true);
 
   const message = document.createElement("p"); // To show error messages
   message.className = "error-message";

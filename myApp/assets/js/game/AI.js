@@ -68,7 +68,7 @@ export class AI extends Player
 	{
 		const { ball, playerObjects } = getState().pongGame;
 		this.setAIParameters(ball, playerObjects[0]);
-		const predictedY = this.predictBallPosition(ball);
+		this.lastKnownBallY = this.predictBallPosition(ball);
 		if (this.paddleY + this.paddleHeight / 2 < this.lastKnownBallY - this.aiTolerance) {
 			this.paddleY += this.speed * this.aiSpeedFactor + Math.random() * 2; // Move AI down slower
 		} else if (this.paddleY + this.paddleHeight / 2 > this.lastKnownBallY + this.aiTolerance) {
@@ -80,12 +80,6 @@ export class AI extends Player
 			this.paddleY = 0;
 		if (this.paddleY + this.paddleHeight > this.canvas.height)
 			this.paddleY = this.canvas.height - this.paddleHeight;
-	}
-	reset()
-	{
-		super.reset();
-		this.lastUpdate = null;
-		this.lastKnownBallY = 0;
 	}
 	setAIParameters(ball, player) 
 	{
@@ -101,14 +95,14 @@ export class AI extends Player
 		this.aiTolerance = Math.random() * 50 + 50; // Larger random tolerance (50 to 100)
 		this.aiSpeedFactor = Math.random() * 0.5 + 0.5; // Slower (50% to 100% speed)
 	}
-	const scoreDifference = player.score - this.score;
+	const scoreDifference = this.score - player.score; // Score difference between AI and player
 
 	// Ball speed calculation
 	const ballSpeed = Math.abs(ball.dx) + Math.abs(ball.dy); // Ball speed
 
 	// Score-based ratio: reduce AI speed and increase tolerance if player is losing badly
 	let scoreRatio = 1; // Default ratio (no adjustment)
-	if (scoreDifference <= -3) // If AI is leading
+	if (scoreDifference >= 3) // If AI is leading
 		scoreRatio = Math.min(1 + scoreDifference * 0.2, 2); // Cap ratio increase (max 2x tolerance, min 0.5x speed)
 
 	// Ball speed ratio: reduce AI speed and increase tolerance as ball speed increases
