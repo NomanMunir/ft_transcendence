@@ -1,7 +1,8 @@
 // app.js
 
 import { handleLocation } from "./routes.js";
-import { NavBar, initNavBar } from "./components/NavBar.js";
+import { NavBar } from "./components/NavBar.js";
+import { initNavBar } from "./main.js";
 
 // Initialize the app once
 function initApp() {
@@ -14,11 +15,10 @@ function initApp() {
   }
 
   const navBar = NavBar();
-  if (!document.querySelector("header"))
-    document.body.prepend(navBar); // Prepend the nav bar at the top of the body
-    
-    // Handle the initial route
-    handleLocation();
+  document.body.prepend(navBar);
+  initNavBar();
+
+  handleLocation();
 }
 
 // Listen for changes in the hash (route changes)

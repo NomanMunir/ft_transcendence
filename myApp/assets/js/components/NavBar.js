@@ -8,11 +8,11 @@ export function NavBar() {
   header.innerHTML = `
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <a href="#home" class="logo d-flex align-items-center me-auto me-xl-0">
-                <h1 class="sitename" data-i18n="site.name"></h1>
+                <h1 class="sitename" data-i18n="site.name">Pong 42</h1>
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#play" class="active" data-i18n="nav.play">Play!</a></li>
+                    <li><a href="#select_pong" class="active" data-i18n="nav.play">Play!</a></li>
                     <li><a href="#about" data-i18n="nav.about">About</a></li>
                     <li><a href="#profile" data-i18n="nav.profile">Profile</a></li>
                     <li><a href="#login" data-i18n="nav.login">Login</a></li>
@@ -31,38 +31,5 @@ export function NavBar() {
             </nav>
         </div>
     `;
-    // initNavBar();
   return header;
-}
-
-export function initNavBar()
-{
-  const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
-  if (mobileNavToggleBtn)
-    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
-
-  function mobileNavToogle() {
-    console.log("mobileNavToggleBtn clicked");
-    document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
-  }
-
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
-        mobileNavToogle();
-      }
-    });
-  });
-
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
-      e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
-    });
-  });
 }

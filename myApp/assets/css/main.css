@@ -737,7 +737,6 @@ h6 {
 section,
 .section {
     color: var(--default-color);
-    background-color: var(--background-color);
     padding: 60px 0;
     scroll-margin-top: 90px;
     overflow: clip;
@@ -1955,3 +1954,137 @@ canvas {
 	color: rgba(255, 255, 255, 0.501);
 }
 
+
+
+/*--------------------------------------------------------------
+  # Team Section
+  --------------------------------------------------------------*/
+  .team {
+    margin: 150px 0;
+    background: transparent;
+}
+
+.team h2 {
+    font-size: 40px;
+    color: var(--accent-color);
+}
+
+.team .card {
+    background-color: var(--background-color);
+    color: var(--default-color);
+    border: none;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.team .card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 25%, rgba(0, 0, 0, 0.9) 75%);
+    z-index: 2;
+}
+
+.team .card img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.team .card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 30px;
+}
+
+.team .card .card-body h3 {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.team .card .card-body h3 a {
+    color: var(--contrast-color);
+}
+
+.team .card .card-body .card-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.team .card .card-body .card-content p {
+    font-size: 15px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    overflow: hidden;
+    color: var(--contrast-color);
+}
+
+.team .card:hover .card-content {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    opacity: 1;
+}
+
+/*--------------------------------------------------------------
+  # Register Section
+  --------------------------------------------------------------*/
+
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: transparent;
+}
+
+.register .card {
+    background-color: rgba(128, 128, 128, 0.403);
+    color: whitesmoke;
+}
+
+.register .btn {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    border: none;
+    border-radius: 5px;
+}
+
+
+/*--------------------------------------------------------------
+  # Login Section
+  --------------------------------------------------------------*/
+
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: transparent;
+}
+
+.login .card {
+    background-color: rgba(128, 128, 128, 0.403);
+    color: whitesmoke;
+}
+
+.login .btn {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    border: none;
+    border-radius: 5px;
+}

@@ -9,6 +9,10 @@ import { NotFound } from "./views/NotFound.js";
 import { MultiPong } from "./views/MultiPong.js";
 import { GameView } from "./views/GameView.js";
 import { createBracket } from "./game/tournament.js";
+import { AboutView } from "./views/AboutView.js";
+import { LoginView } from "./views/LoginView.js";
+import { RegisterView } from "./views/RegisterView.js";
+import { validateForm } from "./main.js";
 
 const routes = {
   "#home": Home,
@@ -17,6 +21,9 @@ const routes = {
   "#select_pong": SelectPong,
   "#multi_pong": MultiPong,
   "#game": GameView,
+  "#about": AboutView,
+  "#login": LoginView,
+  "#register": RegisterView,
   default: Home,
 };
 
@@ -37,7 +44,15 @@ export function handleLocation() {
       app.appendChild(TournamentView());
       createBracket();
       break;
-    default:
+    case "#login":
+      app.appendChild(LoginView());
+      validateForm();
+      break;
+      case "#register":
+        app.appendChild(RegisterView());
+        validateForm();
+        break;
+        default:
       const view = routes[path] || NotFound;
       app.appendChild(view());
   }
