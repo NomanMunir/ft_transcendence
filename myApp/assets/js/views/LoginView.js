@@ -9,7 +9,7 @@ export function LoginView()
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="card mb-3">
+              <div class="card mb-3 bg-dark p-5 rounded shadow-lg">
 
                 <div class="card-body">
 
@@ -42,10 +42,10 @@ export function LoginView()
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-success w-100" type="submit">Login</button>
                     </div>
 					<div class="col-12">
-					<button class="btn btn-primary w-100" type="submit">Login with intra</button>
+					<button class="btn btn-success w-100" type="submit">Login with intra</button>
 				  </div>
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="#register">Create an account</a></p>

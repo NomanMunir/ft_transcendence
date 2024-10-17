@@ -59,7 +59,8 @@ function displayWinner(winner)
 
   const {width, height} = canvas;
   ctx.clearRect(0, 0, width, height);
-  ctx.font = "40px Arial";
+  const fontSize = Math.min(width, height) * 0.05; // 5% of the smaller dimension
+  ctx.font = `${fontSize}px Arial`; // Dynamically set font size
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
 
@@ -85,37 +86,51 @@ export function startCountdownWithDetails()
     const countdownInterval = setInterval(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        ctx.font = "14px Arial";
+        const fontSize = 14; // 5% of the smaller dimension
+
+        ctx.font = `${fontSize}px Arial`; // Dynamically set font size
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         
-        playerObjects.forEach((player) => {
-            // drawBackground();
+        playerObjects.forEach((player) => 
+        {
             let positionText;
+            const playerFontSize = fontSize; // Font size for player name
+            const controlsFontSize = fontSize; // Slightly smaller font for control keys
+        
+            // Set the font size for player names
+            ctx.font = `${playerFontSize}px Arial`;
+
             if (player.movementAxis === "vertical") {
-                if (player.paddleX === 0) {
+                if (player.paddleX === 0) 
+                {
+                  ctx.font = `${controlsFontSize}px Arial`;
                     positionText = "Left Paddle (Vertical)";
                     ctx.fillText(`${player.name}`, 50, height / 2 - 30);
                     ctx.fillText(`(W / S)`, 50, height / 2); 
-                } else {
+                } else 
+                {
                     positionText = "Right Paddle (Vertical)";
                     ctx.fillText(`${player.name}`, width - 70, height / 2 - 30);
+                    ctx.font = `${controlsFontSize}px Arial`;
                     ctx.fillText(`(UP / DOWN)`, width - 70, height / 2); 
                 }
             } else {
                 if (player.paddleY === 0) {
                     positionText = "Top Paddle (Horizontal)";
                     ctx.fillText(`${player.name}`, width / 2, 50); 
+                    ctx.font = `${controlsFontSize}px Arial`;
                     ctx.fillText(`(Z / X)`, width / 2, 80); 
                 } else {
                     positionText = "Bottom Paddle (Horizontal)";
                     ctx.fillText(`${player.name}`, width / 2, height - 60);
+                    ctx.font = `${controlsFontSize}px Arial`;
                     ctx.fillText(`(, / .)`, width / 2, height - 30); 
                 }
             }
         });
 
-        ctx.font = "40px Arial";
+        ctx.font = `${fontSize}px Arial`; // Dynamically set font size
         ctx.fillStyle = "white"; 
         ctx.fillText(`Game starts in ${countdown}...`, width / 2, height / 2);
 

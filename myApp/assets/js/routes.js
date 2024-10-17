@@ -2,7 +2,7 @@
 
 import { Home } from "./views/Home.js";
 import { Play } from "./views/Play.js";
-import { TournamentView } from "./views/TournamentView.js";
+import { TournamentView, resizeTournamentCanvas } from "./views/TournamentView.js";
 import { SelectPong } from "./views/SelectPong.js";
 import { FormView } from "./views/FormView.js";
 import { NotFound } from "./views/NotFound.js";
@@ -13,6 +13,7 @@ import { AboutView } from "./views/AboutView.js";
 import { LoginView } from "./views/LoginView.js";
 import { RegisterView } from "./views/RegisterView.js";
 import { validateForm } from "./main.js";
+import { ProfileView } from "./views/ProfileView.js";
 
 const routes = {
   "#home": Home,
@@ -24,6 +25,7 @@ const routes = {
   "#about": AboutView,
   "#login": LoginView,
   "#register": RegisterView,
+  "#profile": ProfileView,
   default: Home,
 };
 
@@ -42,6 +44,7 @@ export function handleLocation() {
   switch (path) {
     case "#tournament":
       app.appendChild(TournamentView());
+      resizeTournamentCanvas(document.getElementById("gameCanvas"));
       createBracket();
       break;
     case "#login":

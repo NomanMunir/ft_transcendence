@@ -19,7 +19,6 @@ export function validateForm()
 export function initNavBar()
 {
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-	console.log(mobileNavToggleBtn)
   if (mobileNavToggleBtn)
     mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 

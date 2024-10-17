@@ -3,13 +3,14 @@ export function RegisterView()
 {
 	const section = document.createElement("section");
   section.id = "register";
-  section.className = "register section";
+  section.className = "register section min-vh-100 d-flex flex-column align-items-center justify-content-center py-4";
 
   section.innerHTML = `
-  <div class="row justify-content-center">
+  <div class="container">
+    <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="card mb-3">
+              <div class="card mb-3 bg-dark p-5 rounded shadow-lg">
 
                 <div class="card-body">
 
@@ -54,7 +55,7 @@ export function RegisterView()
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      <button class="btn btn-success w-100" type="submit">Create Account</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Already have an account? <a href="#login">Log in</a></p>
@@ -65,6 +66,7 @@ export function RegisterView()
               </div>
             </div>
           </div>
+        </div>
   `;
 	return section;
 }

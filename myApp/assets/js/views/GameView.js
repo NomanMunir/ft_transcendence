@@ -7,8 +7,6 @@ export function GameView() {
 
   const canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";
-  canvas.width = 800; // Set desired width
-  canvas.height = 600; // Set desired height
 
   container.appendChild(canvas);
 
@@ -19,9 +17,25 @@ export function GameView() {
     window.location.hash = "#select_pong";
     return;
   }
-
+  resizeCanvas(canvas);
+  window.addEventListener("resize", resizeCanvas);
   // Call the function that starts the Pong game
   startPongGame(playerNames, canvas);
 
   return container;
+}
+
+export function resizeCanvas(canvas) {
+  const aspectRatio = 4 / 3; // Or any aspect ratio you prefer
+  let canvasWidth = window.innerWidth * 0.8; // 80% of window width
+  let canvasHeight = canvasWidth / aspectRatio;
+  console.log(canvasWidth, canvasHeight);
+
+  if (canvasHeight > window.innerHeight * 0.8) { // Ensure it fits on the screen
+    canvasHeight = window.innerHeight * 0.8;
+    canvasWidth = canvasHeight * aspectRatio;
+  }
+
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
 }

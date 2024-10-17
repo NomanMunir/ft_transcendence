@@ -10,7 +10,9 @@ function displayWinner(winner) {
     const {canvas, ctx} = getState().pongGame;
     const {width, height} = canvas;
     ctx.clearRect(0, 0, width, height);
-    ctx.font = "40px Arial";
+
+    const fontSize = Math.min(width, height) * 0.05;
+    ctx.font = `${fontSize}px Arial`;
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
     ctx.fillText("Click to restart", width / 2, height / 2 + 50);
