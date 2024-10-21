@@ -33,7 +33,7 @@ export async function startPongGame(playerNames, canvas)
         canvas,
         ctx,
         ball,
-        winningScore: 6,
+        winningScore: 1,
         playerObjects,
         gameOver: false,
       }

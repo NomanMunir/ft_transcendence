@@ -12,6 +12,8 @@ export function Form(playerCount) {
         label.htmlFor = `player${i}`;
         label.className = 'form-label';
         label.textContent = `Player ${i}`;
+        label.setAttribute('data-i18n', `form.playerLabel${i}`); // i18n key for the label
+
 
         const input = document.createElement('input');
         input.type = 'text';
@@ -19,6 +21,8 @@ export function Form(playerCount) {
         input.id = `player${i}`;
         input.placeholder = `Enter name of player ${i}`;
         input.required = true;
+        input.setAttribute('data-i18n', `form.playerPlaceholder${i}`); // i18n key for the placeholder
+
 
         div.appendChild(label);
         div.appendChild(input);
@@ -29,6 +33,7 @@ export function Form(playerCount) {
     submitBtn.type = 'submit';
     submitBtn.className = 'btn btn-primary';
     submitBtn.textContent = 'Submit';
+    submitBtn.setAttribute('data-i18n', 'form.submitButton'); // i18n key for the submit button
 
     form.appendChild(submitBtn);
 

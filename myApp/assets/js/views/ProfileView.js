@@ -11,40 +11,40 @@ export function ProfileView() {
   // Profile Information Display
   container.innerHTML = `
     <div class="profile-section">
-      <h2 class="mb-4 text-success">Player Profile</h2>
+      <h2 class="mb-4 text-success" data-i18n="profile.title">${localStorage.getItem("username") ? localStorage.getItem("username").toUpperCase() + "'s" : 'Player'} Profile</h2>
       <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Username:</strong></label>
-          <p class="profile-data">${state.username || 'Not provided'}</p>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.usernameLabel">Username:</strong></label>
+          <p class="profile-data">${localStorage.getItem("username") || 'Not provided'}</p>
         </div>
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Email:</strong></label>
-          <p class="profile-data">${state.email || 'Not provided'}</p>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.emailLabel">Email:</strong></label>
+          <p class="profile-data">${localStorage.getItem("email") || 'Not provided'}</p>
         </div>
       </div>
       <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Score:</strong></label>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.scoreLabel">Score:</strong></label>
           <p class="profile-data">${state.score || '0'}</p>
         </div>
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Games Played:</strong></label>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.gamesPlayedLabel">Games Played:</strong></label>
           <p class="profile-data">${state.gamesPlayed || '0'}</p>
         </div>
       </div>
       <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Wins:</strong></label>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.winsLabel">Wins:</strong></label>
           <p class="profile-data">${state.wins || '0'}</p>
         </div>
-        <div class="col-md-6">
-          <label class="profile-label"><strong>Losses:</strong></label>
+        <div class="col">
+          <label class="profile-label"><strong data-i18n="profile.lossesLabel">Losses:</strong></label>
           <p class="profile-data">${state.losses || '0'}</p>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-12">
-          <button class="btn btn-success w-100">Back to Home</button>
+          <button class="btn btn-success w-100" data-i18n="profile.backButton">Back to Home</button>
         </div>
       </div>
     </div>

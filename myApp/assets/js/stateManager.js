@@ -3,6 +3,12 @@ const state = {
   players: [],
   tournament: false,
   
+  language:
+  {
+    eg: {},
+    ar: {},
+    de: {},
+  },
   // Game-related data under the 'game' object
   pongGame: {
     playerObjects: [],

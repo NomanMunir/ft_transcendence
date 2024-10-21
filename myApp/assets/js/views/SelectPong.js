@@ -17,7 +17,7 @@ export function SelectPong() {
           <div class="card">
             <img src="../assets/img/pp_single_img.webp" alt="" class="img-fluid" data-i18n="[alt]ppmode.singleImg">
             <div class="card-body">
-              <h3><a href="#form" class="stretched-link" data-i18n="ppmode.single">Single Player</a></h3>
+              <h3><a href="#form" id="one_player" class="stretched-link" data-i18n="ppmode.single">Single Player</a></h3>
               <div class="card-content">
                 <p data-i18n="ppmode.singleDesc">Futuristic duel between a human and an AI in a minimalistic pong setting</p>
               </div>
@@ -55,6 +55,10 @@ export function SelectPong() {
 
     section.querySelector("#eight_players").addEventListener("click", (e) => {
       updateState({tournament: true, playerCount: 8});
+      navigateTo("#form");
+    });
+    section.querySelector("#one_player").addEventListener("click", (e) => {
+      updateState({tournament: true, playerCount: 1});
       navigateTo("#form");
     });
   return section;

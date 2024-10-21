@@ -1,14 +1,14 @@
 import { navigateTo } from "../routes.js";
 import { getState, updateState } from "../stateManager.js";
 
-// Helper function to validate player name
-function validatePlayerName(name) {
+function validatePlayerName(name)
+{
   const maliciousPattern = /[^a-zA-Z0-9\s]/; // Allow only alphanumeric and space characters
   return name.length > 0 && name.length <= 10 && !maliciousPattern.test(name);
 }
 
-// Helper function to show error messages
-function showErrorMessage(message, messageText) {
+function showErrorMessage(message, messageText)
+{
   message.style.display = "block";
   message.textContent = messageText;
   message.classList.add("alert", "alert-danger"); // Apply Bootstrap alert styles
@@ -28,10 +28,12 @@ export function FormView() {
 
   const title = document.createElement("h2");
   title.className = "text-white text-center mb-4"; // Centered white text
+  title.setAttribute("data-i18n", "form.title"); // Title localization
   title.textContent = "Player Name Entry";
 
   const label = document.createElement("label");
-  label.textContent = `Enter name for Player 1:`;
+  label.setAttribute("data-i18n", "form.label"); // Label localization
+  label.textContent = `Enter name for Player:`;
   label.setAttribute("for", "playerNameInput");
   label.className = "form-label text-white"; // White label
 
@@ -39,6 +41,7 @@ export function FormView() {
   input.setAttribute("type", "text");
   input.setAttribute("id", "playerNameInput");
   input.setAttribute("placeholder", "Enter player's name");
+  input.setAttribute("data-i18n-placeholder", "form.inputPlaceholder"); // Input placeholder localization
   input.setAttribute("required", true);
   input.setAttribute("maxlength", 10);
   input.setAttribute("autofocus", true);
@@ -47,10 +50,12 @@ export function FormView() {
   const message = document.createElement("p"); // To show error messages
   message.className = "error-message mt-2"; // Add margin-top for spacing
   message.style.display = "none"; // Initially hidden
+  message.setAttribute("data-i18n", "form.errorMessage"); // Error message localization
 
   const submitButton = document.createElement("button");
   submitButton.className = "btn btn-success btn-lg w-100 mt-3"; // Full width button with margin-top
-  submitButton.textContent = "Submit"; // Text on the button
+  submitButton.setAttribute("data-i18n", "form.submitButton"); // Submit button localization
+  submitButton.textContent = "Submit";
 
   form.appendChild(title);
   form.appendChild(label);
@@ -63,24 +68,38 @@ export function FormView() {
   form.addEventListener("submit", (e) => {
     e.preventDefault(); // Prevent form submission
     const playerName = input.value.trim();
-
-    // Validate input: Check if empty, malicious characters, or duplicates
+    const language = localStorage.getItem("language");
+    let invalidName = "Please enter a valid name.";
+    let dupName = "This name has already been used.";
+    let labelContent = `Enter name for Player ${currentPlayerIndex + 2}:`;
+    if (language === "de") {
+      invalidName = "Bitte geben Sie einen gültigen Namen ein.";
+      dupName = "Dieser Name wurde bereits verwendet.";
+      labelContent = `Geben Sie den Namen des Spielers ${currentPlayerIndex + 2} ein:`;
+    }
+    else if (language === "ar") {
+      invalidName = "الرجاء إدخال اسم صالح.";
+      dupName = "تم استخدام هذا الاسم بالفعل.";
+      labelContent = `أدخل اسم اللاعب ${currentPlayerIndex + 2}:`;
+    }
     if (!validatePlayerName(playerName)) {
-      showErrorMessage(message, "Please enter a valid name.");
+      showErrorMessage(message, invalidName);
     } else if (playerNames.includes(playerName)) {
-      showErrorMessage(message, "This name has already been used.");
-    } else {
-      // Name is valid and unique, move to the next player
+      showErrorMessage(message, dupName);
+    }
+    else
+    {
       playerNames.push(playerName);
+      console.log(currentPlayerIndex, playerNames);
       currentPlayerIndex++;
-
-      // Check if we've entered all player names
-      if (currentPlayerIndex < state.playerCount) {
-        // Update form label and input for next player
-        label.textContent = `Enter name for Player ${currentPlayerIndex + 1}:`;
-        input.value = ""; // Clear input for the next player
-        message.style.display = "none"; // Hide error message
-      } else {
+      if (currentPlayerIndex < state.playerCount)
+      {
+        label.textContent = labelContent;
+        input.value = "";
+        message.style.display = "none";
+      }
+      else
+      {
         // All players have been named, proceed with the game logic
         updateState({ players: playerNames });
         if (playerNames.length === 8) {

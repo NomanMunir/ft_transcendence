@@ -21,6 +21,7 @@ export function TournamentView() {
     {
         const alertDiv = document.createElement('div');
         alertDiv.className = 'alert alert-danger';
+        alertDiv.setAttribute("data-i18n", "tournament.error"); // i18n for the error message
         alertDiv.textContent = 'Exactly 8 players are required for the tournament.';
         container.appendChild(alertDiv);
         return container;
@@ -43,4 +44,4 @@ export function resizeTournamentCanvas(canvas) {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     console.log(canvas.width, canvas.height);
-  }
+}

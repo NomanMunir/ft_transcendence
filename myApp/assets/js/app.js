@@ -1,8 +1,6 @@
 // app.js
 
 import { handleLocation } from "./routes.js";
-import { NavBar } from "./components/NavBar.js";
-import { initNavBar } from "./main.js";
 
 // Initialize the app once
 function initApp() {
@@ -14,10 +12,7 @@ function initApp() {
     return;
   }
 
-  const navBar = NavBar();
-  document.body.prepend(navBar);
-  initNavBar();
-
+  localStorage.setItem("isLoggedIn", "true");
   handleLocation();
 }
 

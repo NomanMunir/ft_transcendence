@@ -6,7 +6,10 @@
 	matchmaking of the participants, and announce the next fight.
 [*] Multiple players.
 [ ] Expanding Browser Compatibility
-[ ] Multiple language supports.
 
-[ ] error messages
-[ ] toggle
+[*] error messages
+[*] toggle
+
+[ ] Multiple language supports.
+[ ] login/logout
+[ ] Mobile friendly

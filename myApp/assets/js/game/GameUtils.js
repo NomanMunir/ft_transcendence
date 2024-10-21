@@ -1,6 +1,23 @@
 import { getState, updateState } from "../stateManager.js";
 import { startGameWithCountdownAndPromise } from "./PongGame.js";
 
+function getNestedValue(obj, key)
+{
+  return key.split('.').reduce((currentObject, keyPart) => {
+      return currentObject ? currentObject[keyPart] : undefined;
+  }, obj);
+}
+
+export function translateValue(value)
+{
+  const { language } = getState();
+  const translation = language[localStorage.getItem("language")];
+  const data = getNestedValue(translation, value) || value;
+  return data;
+}
+
+
+
 export function drawBackground(ctx, canvas) {
   const {width, height} = canvas;
   const gradient = ctx.createRadialGradient(
@@ -34,9 +51,8 @@ export function keyHandler(e, isPressed, playerObjects) {
   });
 }
 
-export function checkForWinner()
-{
-  const {playerObjects, winningScore} = getState().pongGame;
+export function checkForWinner() {
+  const { playerObjects, winningScore } = getState().pongGame;
   playerObjects.forEach((player) => {
     if (player.score >= winningScore) {
       displayWinner(player.name);
@@ -44,104 +60,107 @@ export function checkForWinner()
   });
 }
 
-function handleGameRestart()
-{
-  const {playerObjects, ball} = getState().pongGame;
+function handleGameRestart() {
+  const { playerObjects, ball } = getState().pongGame;
   playerObjects.forEach((player) => player.reset());
   ball.reset();
-  updateState({pongGame:{gameOver: false}});
+  updateState({ pongGame: { gameOver: false } });
   startGameWithCountdownAndPromise();
 }
 
-function displayWinner(winner)
-{
-  const { ctx, canvas, playerObjects, tournament} = getState().pongGame;
-
-  const {width, height} = canvas;
+function displayWinner(winner) {
+  const { ctx, canvas, playerObjects, tournament } = getState().pongGame;
+  const { width, height } = canvas;
   ctx.clearRect(0, 0, width, height);
   const fontSize = Math.min(width, height) * 0.05; // 5% of the smaller dimension
   ctx.font = `${fontSize}px Arial`; // Dynamically set font size
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
 
-  if (playerObjects.length < 3) {
-    ctx.fillText(`${winner} Wins!`, width / 2, height / 2);
-  } else {
-    ctx.fillText(`${winner} Lose!`, width / 2, height / 2);
-  }
-  if (!tournament)
+  if (playerObjects.length < 3) 
   {
-    ctx.fillText("Click to restart", width / 2, height / 2 + 50);
+    const text = translateValue("game.winner.single");
+    ctx.fillText(`${winner} ${text}`, width / 2, height / 2); // Add data-i18n attribute for localization
+    ctx.canvas.setAttribute("data-i18n", "game.winner.single");
+  } 
+  else
+  {
+    const text = translateValue("game.winner.lose");
+    ctx.fillText(`${winner} ${text}`, width / 2, height / 2); // Add data-i18n attribute for localization
+    ctx.canvas.setAttribute("data-i18n", "game.winner.lose");
+  }
+  if (!tournament) 
+  {
+    const text = translateValue("game.restartMessage");
+    ctx.fillText(text, width / 2, height / 2 + 50); // Add data-i18n attribute for localization
+    ctx.canvas.setAttribute("data-i18n", "game.restartMessage");
     canvas.addEventListener("click", handleGameRestart, { once: true });
   }
-  updateState({pongGame:{gameOver: true, winner: winner}});
+  updateState({ pongGame: { gameOver: true, winner: winner } });
 }
 
-export function startCountdownWithDetails()
-{
-  const { ctx, canvas, playerObjects,} = getState().pongGame;
+export function startCountdownWithDetails() {
+  const { ctx, canvas, playerObjects } = getState().pongGame;
   return new Promise((resolve) => {
-    const {width, height} = canvas;
-    let countdown = 2; 
+    const { width, height } = canvas;
+    let countdown = 2;
     const countdownInterval = setInterval(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        const fontSize = 14; // 5% of the smaller dimension
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const fontSize = 14;
 
-        ctx.font = `${fontSize}px Arial`; // Dynamically set font size
-        ctx.fillStyle = "white";
-        ctx.textAlign = "center";
-        
-        playerObjects.forEach((player) => 
-        {
-            let positionText;
-            const playerFontSize = fontSize; // Font size for player name
-            const controlsFontSize = fontSize; // Slightly smaller font for control keys
-        
-            // Set the font size for player names
-            ctx.font = `${playerFontSize}px Arial`;
+      ctx.font = `${fontSize}px Arial`;
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
 
-            if (player.movementAxis === "vertical") {
-                if (player.paddleX === 0) 
-                {
-                  ctx.font = `${controlsFontSize}px Arial`;
-                    positionText = "Left Paddle (Vertical)";
-                    ctx.fillText(`${player.name}`, 50, height / 2 - 30);
-                    ctx.fillText(`(W / S)`, 50, height / 2); 
-                } else 
-                {
-                    positionText = "Right Paddle (Vertical)";
-                    ctx.fillText(`${player.name}`, width - 70, height / 2 - 30);
-                    ctx.font = `${controlsFontSize}px Arial`;
-                    ctx.fillText(`(UP / DOWN)`, width - 70, height / 2); 
-                }
-            } else {
-                if (player.paddleY === 0) {
-                    positionText = "Top Paddle (Horizontal)";
-                    ctx.fillText(`${player.name}`, width / 2, 50); 
-                    ctx.font = `${controlsFontSize}px Arial`;
-                    ctx.fillText(`(Z / X)`, width / 2, 80); 
-                } else {
-                    positionText = "Bottom Paddle (Horizontal)";
-                    ctx.fillText(`${player.name}`, width / 2, height - 60);
-                    ctx.font = `${controlsFontSize}px Arial`;
-                    ctx.fillText(`(, / .)`, width / 2, height - 30); 
-                }
-            }
-        });
+      playerObjects.forEach((player) => {
+        const playerFontSize = fontSize * 0.8; // Font size for player name
+        const controlsFontSize = fontSize * 0.7; // Font size for control keys
 
-        ctx.font = `${fontSize}px Arial`; // Dynamically set font size
-        ctx.fillStyle = "white"; 
-        ctx.fillText(`Game starts in ${countdown}...`, width / 2, height / 2);
+        ctx.font = `${playerFontSize}px Arial`;
 
-        countdown--;
-
-        if (countdown < 0) {
-            clearInterval(countdownInterval);
-            resolve();
+        // Add localization attributes to player name and controls
+        if (player.movementAxis === "vertical") {
+          if (player.paddleX === 0) {
+            ctx.fillText(`${player.name}`, 50, height / 2 - 30);
+            ctx.canvas.setAttribute("data-i18n", "game.leftPaddle");
+            ctx.font = `${controlsFontSize}px Arial`;
+            ctx.fillText(`(W / S)`, 50, height / 2);
+            ctx.canvas.setAttribute("data-i18n", "game.controls.leftPaddle");
+          } else {
+            ctx.fillText(`${player.name}`, width - 70, height / 2 - 30);
+            ctx.canvas.setAttribute("data-i18n", "game.rightPaddle");
+            ctx.font = `${controlsFontSize}px Arial`;
+            ctx.fillText(`(↑ / ↓)`, width - 70, height / 2);
+            ctx.canvas.setAttribute("data-i18n", "game.controls.rightPaddle");
+          }
+        } else {
+          if (player.paddleY === 0) {
+            ctx.fillText(`${player.name}`, width / 2, 50);
+            ctx.canvas.setAttribute("data-i18n", "game.topPaddle");
+            ctx.font = `${controlsFontSize}px Arial`;
+            ctx.fillText(`(Z / X)`, width / 2, 80);
+            ctx.canvas.setAttribute("data-i18n", "game.controls.topPaddle");
+          } else {
+            ctx.fillText(`${player.name}`, width / 2, height - 60);
+            ctx.canvas.setAttribute("data-i18n", "game.bottomPaddle");
+            ctx.font = `${controlsFontSize}px Arial`;
+            ctx.fillText(`(, / .)`, width / 2, height - 30);
+            ctx.canvas.setAttribute("data-i18n", "game.controls.bottomPaddle");
+          }
         }
-        
+      });
+
+      const text = translateValue("game.countdown");
+      ctx.font = `${fontSize}px Arial`;
+      ctx.fillStyle = "white";
+      ctx.fillText(`${text} ${countdown}...`, width / 2, height / 2);
+      ctx.canvas.setAttribute("data-i18n", "game.countdown");
+
+      countdown--;
+      if (countdown < 0) {
+        clearInterval(countdownInterval);
+        resolve();
+      }
     }, 1000);
-  }
-);
+  });
 }

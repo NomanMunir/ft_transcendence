@@ -1,3 +1,4 @@
+import { handleLocation, navigateTo } from "./routes.js"
 
 export function validateForm()
 {
@@ -7,13 +8,83 @@ export function validateForm()
 	  .forEach(function(form) {
 		form.addEventListener('submit', function(event) {
 		  if (!form.checkValidity()) {
-			event.preventDefault()
-			event.stopPropagation()
+        event.preventDefault()
+        event.stopPropagation()
 		  }
   
 		  form.classList.add('was-validated')
 		}, false)
 	})
+}
+
+export function setupGlobalHandlers() {
+  document.addEventListener("click", (e) => {
+      if (e.target.matches("[data-action='logout']"))
+      {
+        localStorage.setItem("isLoggedIn", "false");
+        handleLocation();
+      }
+  });
+
+  document.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (e.target.matches("#loginForm"))
+    {
+      const formData = new FormData(e.target);
+
+      const username = formData.get("username").trim();
+      const password = formData.get("password").trim();
+
+      if (username && password) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("username", username);
+        navigateTo("#home");
+      } else {
+        if (!username) {
+          document.getElementById("yourUsername").classList.add("is-invalid");
+        }
+        if (!password) {
+          document.getElementById("yourPassword").classList.add("is-invalid");
+        }
+      }
+    }
+    if (e.target.matches("#regForm"))
+    {
+      console.log("Register form submitted");
+      const formData = new FormData(e.target);
+
+      const name = formData.get("name").trim();
+      const email = formData.get("email").trim();
+      const username = formData.get("username").trim();
+      const password = formData.get("password").trim();  
+      // Basic validation (you can extend this)
+      if (name && email && username && password)
+      {
+        // Assuming registration is successful, store data in localStorage (this can be replaced by an API call)
+        localStorage.setItem("username", username); // Save username if needed
+        localStorage.setItem("email", email); // Save email if needed
+
+        navigateTo("#login");
+      }
+      else
+      {
+        // Show error messages if validation fails
+        if (!name) {
+          document.getElementById("yourName").classList.add("is-invalid");
+        }
+        if (!email) {
+          document.getElementById("yourEmail").classList.add("is-invalid");
+        }
+        if (!username) {
+          document.getElementById("yourUsername").classList.add("is-invalid");
+        }
+        if (!password) {
+          document.getElementById("yourPassword").classList.add("is-invalid");
+        }
+      }
+    }
+  });
 }
 
 export function initNavBar()
@@ -46,4 +117,17 @@ export function initNavBar()
       e.stopImmediatePropagation();
     });
   });
+
+  document.querySelector('.mobile-nav-toggle').addEventListener('click', function() {
+    const navMenu = document.getElementById('navmenu');
+    
+    // Toggle the class on the menu
+    if (navMenu.classList.contains('mobile-menu-active')) {
+        navMenu.classList.remove('mobile-menu-active');
+    } else {
+        navMenu.classList.add('mobile-menu-active');
+    }
+});
+
+
 }
